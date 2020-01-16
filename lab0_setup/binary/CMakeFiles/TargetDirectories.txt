@@ -1,0 +1,4 @@
+/Users/johnphilip/Desktop/ComputerGraphics/lab0_setup/binary/CMakeFiles/Lab0.dir
+/Users/johnphilip/Desktop/ComputerGraphics/lab0_setup/binary/CMakeFiles/Lab0_autogen.dir
+/Users/johnphilip/Desktop/ComputerGraphics/lab0_setup/binary/CMakeFiles/ALL_BUILD.dir
+/Users/johnphilip/Desktop/ComputerGraphics/lab0_setup/binary/CMakeFiles/ZERO_CHECK.dir
