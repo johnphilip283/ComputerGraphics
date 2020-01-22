@@ -1,0 +1,4 @@
+/Users/johnphilip/Desktop/ComputerGraphics/Lab3_Starfield/binary/CMakeFiles/rebuild_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab3_Starfield/binary/CMakeFiles/edit_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab3_Starfield/binary/CMakeFiles/Lab2.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab3_Starfield/binary/CMakeFiles/Lab2_autogen.dir
