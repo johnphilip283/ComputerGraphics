@@ -2,14 +2,14 @@
 
 *TODO*: Please edit the following information in your assignment
 
-* Name and partners name (At most 1 partner for this assignment): 
-* How many hours did it take you to complete this assignment? 
-* Did you collaborate or share ideas with any other students/TAs/Professors? 
+* Name and partners name (At most 1 partner for this assignment): John Philip and Judy Wong
+* How many hours did it take you to complete this assignment? 5
+* Did you collaborate or share ideas with any other students/TAs/Professors? No.
 * Did you use any external resources? 
   * (tbd if any)
   * (tbd if any)
   * (tbd if any)
-* (Optional) What was the most interesting part of the assignment? How would you improve this assignment?
+* (Optional) What was the most interesting part of the assignment? How would you improve this assignment? It was my first time working with C++ directly with image data, and it was just really cool!
   
 ## Description
 
