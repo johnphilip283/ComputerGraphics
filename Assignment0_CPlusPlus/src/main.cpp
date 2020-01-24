@@ -4,25 +4,21 @@
 #include <fstream>
 #include "ppm.cpp"
 
-int main() {
+using namespace std;
 
-    PPM myPPM("../textures/test.ppm");
-    myPPM.darken();
-    myPPM.savePPM("../textures/test_darken.ppm");
-
-    return 0;
-}
-
+// to compile: g++ main.cpp -o main -std=c++11
+// run: ./main file_path
+// ex. "./main ../textures/test.ppm"
 int main(int argc, char** argv) {
 
     if (argc != 2) {
-        std::cout << "Oops, exactly 2 arguments needed.\n";
+        std::cout << "Oops, 2  arguments needed.\n";
         std::cout << "file_path\n";
         return 0;
     }
     
-    std::string fileName = argv[1];
-    std::string outputFile = "./textures/" + fileName + "_darken.ppm";
+    string fileName = argv[1];
+    string outputFile = "../textures/" + fileName.substr(0, fileName.size() - 4) + "_darken.ppm";
 
     PPM myPPM(argv[1]);
     myPPM.darken();
