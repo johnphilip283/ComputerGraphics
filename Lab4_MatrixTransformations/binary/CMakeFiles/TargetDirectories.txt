@@ -1,0 +1,4 @@
+/Users/johnphilip/Desktop/ComputerGraphics/Lab4_MatrixTransformations/binary/CMakeFiles/rebuild_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab4_MatrixTransformations/binary/CMakeFiles/edit_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab4_MatrixTransformations/binary/CMakeFiles/Lab.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab4_MatrixTransformations/binary/CMakeFiles/Lab_autogen.dir
