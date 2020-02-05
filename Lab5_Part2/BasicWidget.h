@@ -20,7 +20,7 @@ private:
   QString fragmentShaderString() const;
   void createShader();
   QOpenGLVertexArrayObject vao_;
-
+  int indicesToDraw = 6;
 protected:
   // Required interaction overrides
   void keyReleaseEvent(QKeyEvent* keyEvent) override;

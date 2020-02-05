@@ -1,0 +1,4 @@
+/Users/johnphilip/Desktop/ComputerGraphics/Lab5_Part1/binary/CMakeFiles/rebuild_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab5_Part1/binary/CMakeFiles/edit_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab5_Part1/binary/CMakeFiles/Lab.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab5_Part1/binary/CMakeFiles/Lab_autogen.dir
