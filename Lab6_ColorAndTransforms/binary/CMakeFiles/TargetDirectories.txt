@@ -1,0 +1,4 @@
+/Users/johnphilip/Desktop/ComputerGraphics/Lab6_ColorAndTransforms/binary/CMakeFiles/rebuild_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab6_ColorAndTransforms/binary/CMakeFiles/edit_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab6_ColorAndTransforms/binary/CMakeFiles/App.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab6_ColorAndTransforms/binary/CMakeFiles/App_autogen.dir
