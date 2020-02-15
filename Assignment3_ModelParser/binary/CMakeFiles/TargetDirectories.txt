@@ -1,0 +1,4 @@
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment3_ModelParser/binary/CMakeFiles/rebuild_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment3_ModelParser/binary/CMakeFiles/edit_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment3_ModelParser/binary/CMakeFiles/Assignment.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment3_ModelParser/binary/CMakeFiles/Assignment_autogen.dir

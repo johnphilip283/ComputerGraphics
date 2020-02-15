@@ -7,21 +7,29 @@
 #include <QtOpenGL>
 
 // Lab application
-#include "Application.h"
+#include "Parser.h"
+#include "Parser.cpp"
+
+#include <iostream>
 
 int main(int argc, char** argv) {
-  QApplication a(argc, argv);
-  QString appDir = a.applicationDirPath();
-  QDir::setCurrent(appDir);
 
-  QSurfaceFormat fmt;
-  fmt.setDepthBufferSize(24);
-  fmt.setStencilBufferSize(8);
-  fmt.setVersion(3,3);
-  fmt.setProfile(QSurfaceFormat::CoreProfile);
-  QSurfaceFormat::setDefaultFormat(fmt);
+  Parser p;
+
+  p.parse("../objects/bunny.obj");
+
+  // QApplication a(argc, argv);
+  // QString appDir = a.applicationDirPath();
+  // QDir::setCurrent(appDir);
+
+  // QSurfaceFormat fmt;
+  // fmt.setDepthBufferSize(24);
+  // fmt.setStencilBufferSize(8);
+  // fmt.setVersion(3,3);
+  // fmt.setProfile(QSurfaceFormat::CoreProfile);
+  // QSurfaceFormat::setDefaultFormat(fmt);
   
-  Application app;
-  app.show();
-  return QApplication::exec();
+  // Application app;
+  // app.show();
+  // return QApplication::exec();
 }
