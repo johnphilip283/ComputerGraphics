@@ -5,6 +5,8 @@
 #include <vector>
 #include <QtOpenGL>
 
+#include <glm/glm.hpp>
+
 using namespace std;
 
 class Parser {
@@ -12,13 +14,16 @@ class Parser {
         Parser();
         ~Parser();
         void parse(std::string filename);
-        GLfloat getVertices();
-        GLfloat getColors();
-        GLuint getIndices();
+        vector<float> getVertices();
+        vector<float> getNormals();
+        vector<unsigned int> getVertexIndices();
+        vector<unsigned int> getNormalsIndices();
     private:
-        vector<GLuint> indicesList;
-        vector<GLfloat> verticesList;
-        vector<GLfloat> colorsList;
+        vector<float> verticesList;
+        vector<float> normalsList;
+        vector<unsigned int> vertexIndices;
+        vector<unsigned int> normalIndices;
+
 };
 
 #endif

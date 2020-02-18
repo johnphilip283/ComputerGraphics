@@ -3,6 +3,10 @@
 #include <QtGui>
 #include <QtWidgets>
 #include <QtOpenGL>
+#include <vector>
+
+using namespace std;
+
 
 /**
  * This is just a basic OpenGL widget that will allow a change of background color.
@@ -16,7 +20,8 @@ private:
   QString fragmentShaderString() const;
   void createShader();
   QOpenGLVertexArrayObject vao_;
-   
+  vector<float> vertices;
+  vector<unsigned int> indices;
 protected:
   // Required interaction overrides
   void keyReleaseEvent(QKeyEvent* keyEvent) override;

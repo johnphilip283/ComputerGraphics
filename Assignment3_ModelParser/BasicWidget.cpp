@@ -1,4 +1,9 @@
 #include "BasicWidget.h"
+#include "Parser.h"
+#include <vector>
+#include <iostream>
+
+using namespace std;
 
 //////////////////////////////////////////////////////////////////////
 // Publics
@@ -96,8 +101,35 @@ void BasicWidget::initializeGL()
   glViewport(0, 0, width(), height());
 
   createShader();
+ 
+  Parser p;
+ 
+  p.parse("../objects/cube.obj");
 
+  vertices = p.getVertices();
+  indices = p.getVertexIndices();
 
+  shaderProgram_.bind();
+  vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+  vbo_.create();
+
+  vbo_.bind();
+  vbo_.allocate(&vertices[0], vertices.size() * sizeof(GL_FLOAT));
+
+  ibo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+  ibo_.create();
+  ibo_.bind();
+  ibo_.allocate(&indices[0], indices.size() * sizeof(GL_INT));
+
+  vao_.create();
+  vao_.bind();
+  vbo_.bind();
+
+  shaderProgram_.enableAttributeArray(0);
+  shaderProgram_.setAttributeBuffer(0, GL_FLOAT, 0, 3);
+  ibo_.bind();
+  vao_.release();
+  shaderProgram_.release();
 
 }
 
@@ -114,5 +146,12 @@ void BasicWidget::paintGL()
   glClearColor(0.f, 0.f, 0.f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // TODO:  render.
+  shaderProgram_.bind();
+  vao_.bind();
+
+  glDrawElements(GL_TRIANGLES, vertices.size() / 3, GL_UNSIGNED_INT, 0);
+
+  vao_.release();
+  shaderProgram_.release();
+
 }
