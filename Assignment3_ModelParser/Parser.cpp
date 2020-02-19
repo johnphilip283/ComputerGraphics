@@ -6,7 +6,6 @@
 #include <string>
 #include <sstream>
 #include <unordered_set>
-#include <glm/glm.hpp>
 
 using namespace std;
 

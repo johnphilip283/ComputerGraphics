@@ -7,7 +7,7 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////////
 // Publics
-BasicWidget::BasicWidget(QWidget* parent) : QOpenGLWidget(parent)
+BasicWidget::BasicWidget(QWidget* parent) : QOpenGLWidget(parent), vbo_(QOpenGLBuffer::VertexBuffer), cbo_(QOpenGLBuffer::VertexBuffer), ibo_(QOpenGLBuffer::IndexBuffer)
 {
   setFocusPolicy(Qt::StrongFocus);
 }
@@ -18,8 +18,8 @@ BasicWidget::~BasicWidget()
   vbo_.destroy();
   ibo_.release();
   ibo_.destroy();
-  cbo_.release();
-  cbo_.destroy();
+  // cbo_.release();
+  // cbo_.destroy();
   vao_.release();
   vao_.destroy();
 }
@@ -98,8 +98,6 @@ void BasicWidget::initializeGL()
   qDebug() << "  Version: " << reinterpret_cast<const char*>(glGetString(GL_VERSION));
   qDebug() << "  GLSL Version: " << reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-  glViewport(0, 0, width(), height());
-
   createShader();
  
   Parser p;
@@ -109,17 +107,29 @@ void BasicWidget::initializeGL()
   vertices = p.getVertices();
   indices = p.getVertexIndices();
 
+  vector<float> colors;
+
+  for (unsigned int i = 0; i < vertices.size() + (vertices.size() / 3); i++) {
+    colors.push_back(1.0f);
+  }
+
   shaderProgram_.bind();
   vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
   vbo_.create();
 
   vbo_.bind();
-  vbo_.allocate(&vertices[0], vertices.size() * sizeof(GL_FLOAT));
+  vbo_.allocate(vertices.data(), vertices.size() * sizeof(GL_FLOAT));
+
+  cbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+  cbo_.create();
+  // Bind our vbo inside our vao
+  cbo_.bind();
+  cbo_.allocate(colors.data(), colors.size() * sizeof(GL_FLOAT));
 
   ibo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
   ibo_.create();
   ibo_.bind();
-  ibo_.allocate(&indices[0], indices.size() * sizeof(GL_INT));
+  ibo_.allocate(indices.data(), indices.size() * sizeof(GL_INT));
 
   vao_.create();
   vao_.bind();
@@ -127,10 +137,15 @@ void BasicWidget::initializeGL()
 
   shaderProgram_.enableAttributeArray(0);
   shaderProgram_.setAttributeBuffer(0, GL_FLOAT, 0, 3);
+  cbo_.bind();
+  shaderProgram_.enableAttributeArray(1);
+  shaderProgram_.setAttributeBuffer(1, GL_FLOAT, 0, 4);
+
   ibo_.bind();
   vao_.release();
   shaderProgram_.release();
-
+  
+  glViewport(0, 0, width(), height());
 }
 
 void BasicWidget::resizeGL(int w, int h)
@@ -140,8 +155,8 @@ void BasicWidget::resizeGL(int w, int h)
 
 void BasicWidget::paintGL()
 {
-  glDisable(GL_DEPTH_TEST);
-  glDisable(GL_CULL_FACE);
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
 
   glClearColor(0.f, 0.f, 0.f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
