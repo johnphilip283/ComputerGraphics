@@ -25,6 +25,8 @@ QtOpenGL
 -
 vector
 -
+string
+-
 
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment3_ModelParser/Parser.h
 string
