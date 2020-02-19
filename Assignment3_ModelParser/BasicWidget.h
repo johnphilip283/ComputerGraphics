@@ -5,8 +5,9 @@
 #include <QtOpenGL>
 #include <vector>
 
+#define USE_COLOR true
+ 
 using namespace std;
-
 
 /**
  * This is just a basic OpenGL widget that will allow a change of background color.

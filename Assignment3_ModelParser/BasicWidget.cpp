@@ -18,8 +18,8 @@ BasicWidget::~BasicWidget()
   vbo_.destroy();
   ibo_.release();
   ibo_.destroy();
-  // cbo_.release();
-  // cbo_.destroy();
+    // cbo_.release();
+    // cbo_.destroy();
   vao_.release();
   vao_.destroy();
 }
@@ -36,7 +36,7 @@ QString BasicWidget::vertexShaderString() const
 	"void main()\n"
 	"{\n"
 	"  gl_Position = vec4(position, 1.0);\n"
-    "  vertColor = color;\n"
+    "  vertColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);\n"
     "}\n";
   return str;
 }
@@ -49,7 +49,7 @@ QString BasicWidget::fragmentShaderString() const
 	"out vec4 color;\n"
 	"void main()\n"
 	"{\n"
-	"  color = vertColor;\n"
+	"  color = vec4(1.0f, 1.0f, 1.0f, 1.0f);\n"
 	"}\n";
   return str;
 }
@@ -113,23 +113,49 @@ void BasicWidget::initializeGL()
     colors.push_back(1.0f);
   }
 
+  // Define our verts
+  // static const GLfloat verts[12] =
+  // {
+	// -0.8f, -0.8f, 0.0f, // Left vertex position
+	// 0.8f, -0.8f, 0.0f,  // right vertex position
+	// -0.8f,  0.8f, 0.0f,  // Top vertex position
+  //   0.8f, 0.8f, 0.0f
+  // };
+  // // // Define our vert colors
+  // static const GLfloat colors[16] =
+  // {
+  //     1.0f, 0.0f, 0.0f, 1.0f, // red
+  //     0.0f, 1.0f, 0.0f, 1.0f, // green
+  //     0.0f, 0.0f, 1.0f, 1.0f, // blue
+  //     1.0f, 1.0f, 0.0f, 1.0f  // yellow
+  // };
+  // // Define our indices
+  // static const GLuint idx[6] =
+  // {
+  //     0, 1, 2, 2, 1, 3
+  // };
+
   shaderProgram_.bind();
   vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
   vbo_.create();
 
   vbo_.bind();
+
   vbo_.allocate(vertices.data(), vertices.size() * sizeof(GL_FLOAT));
+  // vbo_.allocate(verts, 12 * sizeof(GL_FLOAT));
 
   cbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
   cbo_.create();
   // Bind our vbo inside our vao
   cbo_.bind();
   cbo_.allocate(colors.data(), colors.size() * sizeof(GL_FLOAT));
+  // cbo_.allocate(colors, 16 * sizeof(GL_FLOAT));
 
   ibo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
   ibo_.create();
   ibo_.bind();
   ibo_.allocate(indices.data(), indices.size() * sizeof(GL_INT));
+  // ibo_.allocate(idx, 6 * sizeof(GL_INT));
 
   vao_.create();
   vao_.bind();
@@ -137,9 +163,9 @@ void BasicWidget::initializeGL()
 
   shaderProgram_.enableAttributeArray(0);
   shaderProgram_.setAttributeBuffer(0, GL_FLOAT, 0, 3);
-  cbo_.bind();
-  shaderProgram_.enableAttributeArray(1);
-  shaderProgram_.setAttributeBuffer(1, GL_FLOAT, 0, 4);
+  // cbo_.bind();
+  // shaderProgram_.enableAttributeArray(1);
+  // shaderProgram_.setAttributeBuffer(1, GL_FLOAT, 0, 4);
 
   ibo_.bind();
   vao_.release();
@@ -165,6 +191,7 @@ void BasicWidget::paintGL()
   vao_.bind();
 
   glDrawElements(GL_TRIANGLES, vertices.size() / 3, GL_UNSIGNED_INT, 0);
+  // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
   vao_.release();
   shaderProgram_.release();
