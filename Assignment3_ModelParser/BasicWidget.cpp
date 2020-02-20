@@ -7,19 +7,27 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////////
 // Publics
-BasicWidget::BasicWidget(QWidget* parent) : QOpenGLWidget(parent), vbo_(QOpenGLBuffer::VertexBuffer), cbo_(QOpenGLBuffer::VertexBuffer), ibo_(QOpenGLBuffer::IndexBuffer)
+BasicWidget::BasicWidget(QWidget* parent) : QOpenGLWidget(parent), 
+m_vbo_(QOpenGLBuffer::VertexBuffer), 
+m_ibo_(QOpenGLBuffer::IndexBuffer), 
+b_vbo_(QOpenGLBuffer::VertexBuffer), 
+b_ibo_(QOpenGLBuffer::IndexBuffer)
 {
   setFocusPolicy(Qt::StrongFocus);
+  is_bunny = true;
+  show_wireframe = false;
 }
 
 BasicWidget::~BasicWidget()
 {
-  vbo_.release();
-  vbo_.destroy();
-  ibo_.release();
-  ibo_.destroy();
-    // cbo_.release();
-    // cbo_.destroy();
+  b_vbo_.release();
+  b_vbo_.destroy();
+  b_ibo_.release();
+  b_ibo_.destroy();
+  m_vbo_.release();
+  m_vbo_.destroy();
+  m_ibo_.release();
+  m_ibo_.destroy();
   vao_.release();
   vao_.destroy();
 }
@@ -36,7 +44,7 @@ QString BasicWidget::vertexShaderString() const
 	"void main()\n"
 	"{\n"
 	"  gl_Position = vec4(position, 1.0);\n"
-    "  vertColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);\n"
+    "  vertColor = color;\n"
     "}\n";
   return str;
 }
@@ -58,10 +66,22 @@ QString BasicWidget::fragmentShaderString() const
 // Protected
 void BasicWidget::keyReleaseEvent(QKeyEvent* keyEvent)
 {
-  // TODO
-  // Handle key events here.
+  if (keyEvent->key() == Qt::Key_1) {
+    qDebug() << "1 - Bunny";
+    is_bunny = true;
+    update();  
+  } else if (keyEvent->key() == Qt::Key_2) {
+    qDebug() << "2 - Monkey";
+    is_bunny = false;
+    update();
+  } else if (keyEvent->key() == Qt::Key_Q) {
+    exit(0);
+  } else if (keyEvent->key() == Qt::Key_W) {
+    show_wireframe = !show_wireframe;
+    update();
+  } else {
   qDebug() << "You Pressed an unsupported Key!";
-  // ENDTODO
+  }
 }
 
 void BasicWidget::createShader()
@@ -70,17 +90,20 @@ void BasicWidget::createShader()
   vert.compileSourceCode(vertexShaderString());
   QOpenGLShader frag(QOpenGLShader::Fragment);
   frag.compileSourceCode(fragmentShaderString());
+
   bool ok = shaderProgram_.addShader(&vert);
-  if(!ok) {
-	qDebug() << shaderProgram_.log();
+  if (!ok) {
+    qDebug() << shaderProgram_.log();
   }
+
   ok = shaderProgram_.addShader(&frag);
-  if(!ok) {
-	qDebug() << shaderProgram_.log();
+  if (!ok) {
+    qDebug() << shaderProgram_.log();
   }
+
   ok = shaderProgram_.link();
-  if(!ok) {
-	qDebug() << shaderProgram_.log();
+  if (!ok) {
+	  qDebug() << shaderProgram_.log();
   }
 }
 
@@ -100,77 +123,50 @@ void BasicWidget::initializeGL()
 
   createShader();
  
-  Parser p;
- 
-  p.parse("../objects/cube.obj");
+  Parser bunny_parser;
+  Parser monkey_parser;
+  
+  bunny_parser.parse("../objects/bunny_centered.obj");
+  monkey_parser.parse("../objects/monkey_centered.obj");
 
-  vertices = p.getVertices();
-  indices = p.getVertexIndices();
+  bunny_vertices = bunny_parser.getVertices();
+  bunny_indices = bunny_parser.getVertexIndices();
 
-  vector<float> colors;
-
-  for (unsigned int i = 0; i < vertices.size() + (vertices.size() / 3); i++) {
-    colors.push_back(1.0f);
-  }
-
-  // Define our verts
-  // static const GLfloat verts[12] =
-  // {
-	// -0.8f, -0.8f, 0.0f, // Left vertex position
-	// 0.8f, -0.8f, 0.0f,  // right vertex position
-	// -0.8f,  0.8f, 0.0f,  // Top vertex position
-  //   0.8f, 0.8f, 0.0f
-  // };
-  // // // Define our vert colors
-  // static const GLfloat colors[16] =
-  // {
-  //     1.0f, 0.0f, 0.0f, 1.0f, // red
-  //     0.0f, 1.0f, 0.0f, 1.0f, // green
-  //     0.0f, 0.0f, 1.0f, 1.0f, // blue
-  //     1.0f, 1.0f, 0.0f, 1.0f  // yellow
-  // };
-  // // Define our indices
-  // static const GLuint idx[6] =
-  // {
-  //     0, 1, 2, 2, 1, 3
-  // };
+  monkey_vertices = monkey_parser.getVertices();
+  monkey_indices = monkey_parser.getVertexIndices();
 
   shaderProgram_.bind();
-  vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
-  vbo_.create();
 
-  vbo_.bind();
+  b_vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+  b_vbo_.create();
+  b_vbo_.bind();
+  b_vbo_.allocate(bunny_vertices.data(), bunny_vertices.size() * sizeof(GL_FLOAT));
 
-  vbo_.allocate(vertices.data(), vertices.size() * sizeof(GL_FLOAT));
-  // vbo_.allocate(verts, 12 * sizeof(GL_FLOAT));
+  b_ibo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+  b_ibo_.create();
+  b_ibo_.bind();
+  b_ibo_.allocate(bunny_indices.data(), bunny_indices.size() * sizeof(GL_INT));
 
-  cbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
-  cbo_.create();
-  // Bind our vbo inside our vao
-  cbo_.bind();
-  cbo_.allocate(colors.data(), colors.size() * sizeof(GL_FLOAT));
-  // cbo_.allocate(colors, 16 * sizeof(GL_FLOAT));
+  m_vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+  m_vbo_.create();
+  m_vbo_.bind();
+  m_vbo_.allocate(monkey_vertices.data(), monkey_vertices.size() * sizeof(GL_FLOAT));
 
-  ibo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
-  ibo_.create();
-  ibo_.bind();
-  ibo_.allocate(indices.data(), indices.size() * sizeof(GL_INT));
-  // ibo_.allocate(idx, 6 * sizeof(GL_INT));
+  m_ibo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+  m_ibo_.create();
+  m_ibo_.bind();
+  m_ibo_.allocate(monkey_indices.data(), monkey_indices.size() * sizeof(GL_INT));
 
   vao_.create();
   vao_.bind();
-  vbo_.bind();
-
+  b_vbo_.bind();
   shaderProgram_.enableAttributeArray(0);
   shaderProgram_.setAttributeBuffer(0, GL_FLOAT, 0, 3);
-  // cbo_.bind();
-  // shaderProgram_.enableAttributeArray(1);
-  // shaderProgram_.setAttributeBuffer(1, GL_FLOAT, 0, 4);
 
-  ibo_.bind();
+  b_ibo_.bind();
+  // Releae the vao THEN the vbo
   vao_.release();
   shaderProgram_.release();
-  
   glViewport(0, 0, width(), height());
 }
 
@@ -181,18 +177,32 @@ void BasicWidget::resizeGL(int w, int h)
 
 void BasicWidget::paintGL()
 {
-  glEnable(GL_DEPTH_TEST);
-  glEnable(GL_CULL_FACE);
+  glDisable(GL_DEPTH_TEST);
+  glDisable(GL_CULL_FACE);
 
   glClearColor(0.f, 0.f, 0.f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   shaderProgram_.bind();
   vao_.bind();
-
-  glDrawElements(GL_TRIANGLES, vertices.size() / 3, GL_UNSIGNED_INT, 0);
-  // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
+  
+  glPolygonMode(GL_FRONT_AND_BACK, show_wireframe ? GL_LINE : GL_FILL);
+  
+  if (is_bunny) {
+    b_vbo_.bind();
+    shaderProgram_.enableAttributeArray(0);
+    shaderProgram_.setAttributeBuffer(0, GL_FLOAT, 0, 3);
+    b_ibo_.bind();
+    glDrawElements(GL_TRIANGLES, bunny_indices.size(), GL_UNSIGNED_INT, 0);
+    
+  } else {
+    m_vbo_.bind();
+    shaderProgram_.enableAttributeArray(0);
+    shaderProgram_.setAttributeBuffer(0, GL_FLOAT, 0, 3);
+    m_ibo_.bind();
+    glDrawElements(GL_TRIANGLES, monkey_indices.size(), GL_UNSIGNED_INT, 0);
+  }
+  
   vao_.release();
   shaderProgram_.release();
 

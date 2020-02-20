@@ -12,15 +12,14 @@ class Parser {
         Parser();
         ~Parser();
         void parse(string filename);
-        vector<float> getVertices();
-        vector<float> getNormals();
-        vector<unsigned int> getVertexIndices();
-        vector<unsigned int> getNormalsIndices();
+        vector<GLfloat> getVertices();
+        vector<GLfloat> getNormals();
+        vector<GLuint> getVertexIndices();
+        vector<GLuint> getNormalsIndices();
     private:
-        vector<float> verticesList;
-        vector<float> normalsList;
-        vector<unsigned int> vertexIndices;
-        vector<unsigned int> normalIndices;
+        vector<GLfloat> verticesList;
+        vector<GLfloat> normalsList;
+        vector<GLuint> vertexIndices;
+        vector<GLuint> normalIndices;
 };
-
 #endif

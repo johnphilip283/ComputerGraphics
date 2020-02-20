@@ -5,7 +5,6 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <unordered_set>
 
 using namespace std;
 
@@ -72,18 +71,18 @@ void Parser::parse(string fileName) {
 
 }
 
-vector<float> Parser::getVertices() {
+vector<GLfloat> Parser::getVertices() {
     return verticesList;
 }
 
-vector<float> Parser::getNormals() {
+vector<GLfloat> Parser::getNormals() {
     return normalsList;
 }
 
-vector<unsigned int> Parser::getVertexIndices() {
+vector<GLuint> Parser::getVertexIndices() {
     return vertexIndices;
 }
 
-vector<unsigned int> Parser::getNormalsIndices() {
+vector<GLuint> Parser::getNormalsIndices() {
     return normalIndices;
 }

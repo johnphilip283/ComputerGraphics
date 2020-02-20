@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QtOpenGL>
 #include <vector>
+#include <string>
 
 #define USE_COLOR true
  
@@ -21,8 +22,12 @@ private:
   QString fragmentShaderString() const;
   void createShader();
   QOpenGLVertexArrayObject vao_;
-  vector<float> vertices;
-  vector<unsigned int> indices;
+  vector<GLfloat> bunny_vertices;
+  vector<GLuint> bunny_indices;
+  vector<GLfloat> monkey_vertices;
+  vector<GLuint> monkey_indices;
+  bool is_bunny;
+  bool show_wireframe;
 protected:
   // Required interaction overrides
   void keyReleaseEvent(QKeyEvent* keyEvent) override;
@@ -33,9 +38,11 @@ protected:
   void paintGL() override;
 
   QOpenGLShaderProgram shaderProgram_;
-  QOpenGLBuffer vbo_;
-  QOpenGLBuffer ibo_;
-  QOpenGLBuffer cbo_;
+  QOpenGLBuffer b_vbo_;
+  QOpenGLBuffer b_ibo_;
+  QOpenGLBuffer m_ibo_;
+  QOpenGLBuffer m_vbo_;
+
 
 public:
   BasicWidget(QWidget* parent=nullptr);
