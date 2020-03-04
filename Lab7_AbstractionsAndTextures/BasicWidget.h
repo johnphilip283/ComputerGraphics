@@ -24,6 +24,8 @@ private:
 
   QOpenGLDebugLogger logger_;
 
+  Renderable* createRenderable(QVector3D start, QString path);
+
 protected:
   // Required interaction overrides
   void keyReleaseEvent(QKeyEvent* keyEvent) override;

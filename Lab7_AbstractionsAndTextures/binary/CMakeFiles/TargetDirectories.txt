@@ -1,0 +1,4 @@
+/Users/johnphilip/Desktop/ComputerGraphics/Lab7_AbstractionsAndTextures/binary/CMakeFiles/rebuild_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab7_AbstractionsAndTextures/binary/CMakeFiles/edit_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab7_AbstractionsAndTextures/binary/CMakeFiles/App.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab7_AbstractionsAndTextures/binary/CMakeFiles/App_autogen.dir

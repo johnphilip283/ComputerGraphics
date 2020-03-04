@@ -38,28 +38,59 @@ void BasicWidget::initializeGL()
   initializeOpenGLFunctions();
 
   qDebug() << QDir::currentPath();
-  QString texFile = "../../cat3.ppm";
+
+  Renderable * first_cat = createRenderable(QVector3D(1, 0, 0), "../cat3.ppm");
+  Renderable * second_cat = createRenderable(QVector3D(1, 0, 0), "../cat3.ppm");
+  renderables_.push_back(first_cat);
+  renderables_.push_back(second_cat);
+
+  QMatrix4x4 first_transform;
+  first_transform.setToIdentity();
+  first_transform.translate(-1.5, 0, -1);
+
+  QMatrix4x4 second_transform;
+  second_transform.setToIdentity();
+  second_transform.translate(1.5, 0, -1);
+
+  first_cat->setModelMatrix(first_transform);
+  second_cat->setModelMatrix(second_transform);
+
+  first_cat->setRotationAxis(QVector3D(0, 0, 1));
+  second_cat->setRotationAxis(QVector3D(0, 0, 1));
+
+  glViewport(0, 0, width(), height());
+  frameTimer_.start();
+}
+
+Renderable* BasicWidget::createRenderable(QVector3D start, QString path) {
+
   QVector<QVector3D> pos;
   QVector<QVector3D> norm;
   QVector<QVector2D> texCoord;
   QVector<unsigned int> idx;
-  pos << QVector3D(-0.8, -0.8, 0.0);
-  pos << QVector3D(0.8, -0.8, 0.0);
-  pos << QVector3D(-0.8, 0.8, 0.0);
-  pos << QVector3D(0.8, 0.8, 0.0);
+
+  pos << QVector3D(-0.8 + start.x(), -0.8 + start.y(), 0.0 + start.z());
+  pos << QVector3D(0.8 + start.x(), -0.8 + start.y(), 0.0 + start.z());
+  pos << QVector3D(-0.8 + start.x(), 0.8 + start.y(), 0.0 + start.z());
+  pos << QVector3D(0.8 + start.x(), 0.8 + start.y(), 0.0 + start.z());
+
   // We don't actually use the normals right now, but this will be useful later!
   norm << QVector3D(0.0, 0.0, 1.0);
   norm << QVector3D(0.0, 0.0, 1.0);
   norm << QVector3D(0.0, 0.0, 1.0);
   norm << QVector3D(0.0, 0.0, 1.0);
+
   // TODO:  Make sure to add texture coordinates to pass into the initialization of our renderable
   idx << 0 << 1 << 2 << 2 << 1 << 3;
+  texCoord << QVector2D(1, 1);
+  texCoord << QVector2D(0, 1);
+  texCoord << QVector2D(1, 0);
+  texCoord << QVector2D(0, 0);
 
   Renderable* ren = new Renderable();
-  ren->init(pos, norm, texCoord, idx, texFile);
-  renderables_.push_back(ren);
-  glViewport(0, 0, width(), height());
-  frameTimer_.start();
+  ren->init(pos, norm, texCoord, idx, path);
+  return ren;
+
 }
 
 void BasicWidget::resizeGL(int w, int h)
