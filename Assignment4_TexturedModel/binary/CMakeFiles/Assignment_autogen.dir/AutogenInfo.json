@@ -1,14 +1,26 @@
 {
-	"BUILD_DIR" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/App_autogen",
+	"BUILD_DIR" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/Assignment_autogen",
 	"CMAKE_BINARY_DIR" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary",
 	"CMAKE_CURRENT_BINARY_DIR" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary",
 	"CMAKE_CURRENT_SOURCE_DIR" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel",
 	"CMAKE_EXECUTABLE" : "/Applications/CMake.app/Contents/bin/cmake",
 	"CMAKE_SOURCE_DIR" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel",
-	"HEADERS" : [],
+	"HEADERS" : 
+	[
+		[
+			"/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.h",
+			"Mu",
+			"EWIEGA46WW/moc_Application.cpp"
+		],
+		[
+			"/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.h",
+			"Mu",
+			"EWIEGA46WW/moc_BasicWidget.cpp"
+		]
+	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/App_autogen/include",
-	"MOC_COMPILATION_FILE" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/App_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/Assignment_autogen/include",
+	"MOC_COMPILATION_FILE" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/Assignment_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"QT_CORE_LIB",
@@ -55,18 +67,26 @@
 		"-c",
 		"/Applications/CMake.app/Contents/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/App_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/Assignment_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 2,
-	"PARSE_CACHE_FILE" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/App_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/Users/johnphilip/Qt/5.14.0/clang_64/bin/moc",
 	"QT_UIC_EXECUTABLE" : "",
 	"QT_VERSION_MAJOR" : 5,
-	"SETTINGS_FILE" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/App_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[
+			"/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.cpp",
+			"Mu"
+		],
+		[
+			"/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.cpp",
+			"Mu"
+		],
 		[
 			"/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/main.cpp",
 			"Mu"

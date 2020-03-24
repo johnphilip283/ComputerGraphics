@@ -85,12 +85,12 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "CMakeFiles/App_autogen.dir/AutogenInfo.json"
+  "CMakeFiles/Assignment_autogen.dir/AutogenInfo.json"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/App.dir/DependInfo.cmake"
-  "CMakeFiles/App_autogen.dir/DependInfo.cmake"
+  "CMakeFiles/Assignment.dir/DependInfo.cmake"
+  "CMakeFiles/Assignment_autogen.dir/DependInfo.cmake"
   )

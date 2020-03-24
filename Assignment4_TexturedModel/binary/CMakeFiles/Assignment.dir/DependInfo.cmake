@@ -4,8 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/App_autogen/mocs_compilation.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/App.dir/App_autogen/mocs_compilation.cpp.o"
-  "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/main.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/App.dir/main.cpp.o"
+  "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/Application.cpp.o"
+  "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/Assignment_autogen/mocs_compilation.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/Assignment_autogen/mocs_compilation.cpp.o"
+  "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/BasicWidget.cpp.o"
+  "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/main.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
@@ -22,7 +24,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "."
   "../"
-  "App_autogen/include"
+  "Assignment_autogen/include"
   "/Users/johnphilip/Qt/5.14.0/clang_64/lib/QtWidgets.framework"
   "/Users/johnphilip/Qt/5.14.0/clang_64/lib/QtWidgets.framework/Headers"
   "/Users/johnphilip/Qt/5.14.0/clang_64/lib/QtGui.framework"

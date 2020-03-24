@@ -126,7 +126,7 @@ void BasicWidget::initializeGL()
   Parser bunny_parser;
   Parser monkey_parser;
   
-  bunny_parser.parse("../objects/bunny_centered.obj");
+  bunny_parser.parse("../objects/house/house_obj.obj");
   monkey_parser.parse("../objects/monkey_centered.obj");
 
   bunny_vertices = bunny_parser.getVertices();

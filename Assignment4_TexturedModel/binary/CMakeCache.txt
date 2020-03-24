@@ -15,10 +15,10 @@
 ########################
 
 //Value Computed by CMake
-App_BINARY_DIR:STATIC=/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary
+Assignment_BINARY_DIR:STATIC=/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary
 
 //Value Computed by CMake
-App_SOURCE_DIR:STATIC=/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel
+Assignment_SOURCE_DIR:STATIC=/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel
 
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=CMAKE_ADDR2LINE-NOTFOUND
@@ -152,7 +152,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=App
+CMAKE_PROJECT_NAME:STATIC=Assignment
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib

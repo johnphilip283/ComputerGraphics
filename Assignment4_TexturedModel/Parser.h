@@ -16,10 +16,14 @@ class Parser {
         vector<GLfloat> getNormals();
         vector<GLuint> getVertexIndices();
         vector<GLuint> getNormalsIndices();
+        vector<GLfloat> getTextures();
+        vector<GLuint> getTextureIndices();
     private:
         vector<GLfloat> verticesList;
         vector<GLfloat> normalsList;
         vector<GLuint> vertexIndices;
         vector<GLuint> normalIndices;
+        vector<GLfloat> texturesList;
+        vector<GLuint> texturesIndices;
 };
 #endif

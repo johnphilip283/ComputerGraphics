@@ -1,8 +1,6 @@
-# Assignment 4 - Render a Textured .obj model
+# Assignment 3 - Render a .obj model
 
-(The picture shows an example of success for this assignment)
-<img align="right" src="./media/house.jpg" width="400px" alt="picture">
-
+<img align="right" src="./media/bunnyWireframe.png" alt="Stanford Bunny" width="400px"/>
 
 *TODO*: Please edit the following information in your assignment
 
@@ -17,332 +15,231 @@
   
 ## Description
 
-Previously we have drawn a solid filled color and a wireframe for a
-.obj model. We were able to parse the .obj file format, picking out
-the vertices, and then make triangles based on selecting the right
-vertices(our indices). One optimization we made use of was OpenGl's
-index buffer which allowed us to *pick* the vertex data that we need
-to make a triangle. A final call to
-[glDrawElements](http://docs.gl/gl3/glDrawElements) was finally used
-to render the model to the screen for the amount of indices we had
-(which was some multiple of 3).
+You have learned that we can draw polygons to the screen by plotting them out one triangle at a time both in a software render and in OpenGL. We can even use mathematical functions to draw nice curves and geometric patterns (e.g. the [sierpinski triangle](https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle)) to draw more interesting graphical scenes.  Most often however complex shapes will either be modeled in 3D by artists [[1](https://www.youtube.com/watch?v=SaPkbl5n7Pc)] [[2](https://www.youtube.com/watch?v=funtOiN3gKY)] or otherwise scanned from the real world by [lasers to capture the geometry](https://www.youtube.com/watch?v=1lDO1UevAJI) of an object. This data is then output in a 3D file format that can be read in by the CPU and then drawn to the screen using our GPUs.
 
-For this assignment we are going to add more detail to our loader by
-adding texture onto our model. In our scene, we will also add a
-perspective camera transformation so we can more properly convey depth
-in our 3D graphics scene. By the end of this assignment you will have
-made use of what you learned in assignment 1 (PPM Loader) and 2 (.obj
-loader).
+## Part 1 - The vector data structure (C++ refresh)
 
-### Assignment Strategy
-
-This assignment requires some amount of thinking. The actual amount of
-lines of code is potentially small (ballpark of 100 or less) if you
-are building this assignment from our previous labs (e.g. lab 7). Here
-are my recommendations:
-
-1. Make use (or study) of lab 7 as starter code that supports vertex and texture data.
-2. Only after you get things working: take this as an opportunity to clean up your codebase.
-
-## Part 1 - Object-Oriented Programming Strategies (C++ refresh)
-
-I want to continue to give a little bit more background on C++ and
-thinking about data. There is no deliverable for part 1, but it will
-be useful to at the very least think about.
-
-### Task 1 - Program arguments
-
-In order to speed up iteration time, it can be useful to read in a
-data from program arguments. This can be done via the argc/argv
-parameter in main.cpp.  Another option is to use the Qt-based File->Open
-mechanism.  This is easy to implement and can often be easier to deal with
-than commandline args.
+I want to give a little bit more background on a helpful data structure for this assignment. The Standard Template Library(STL) provides [std::vector](http://www.cplusplus.com/reference/vector/vector/). It is an exapanding data structure that we can push data into, and access each element read from in O(1) time. Provided below is an example for working with a std::vector and a custom data type.
 
 ```cpp
+// This is a 'toy' example of using the std::vector
+// Compile with:
+// g++ vector.cpp -o vector
+
 #include <iostream>
+#include <vector>	// Our new library
 
-int main(int argc, char** argv){
+// Here is a struct that holds
+// the indicies that make up a triangle.
+// Note that we are using a 'struct' as a 
+// 'Plain-old datatype' or POD, to just hold
+// some information. No fancy constructors or
+// destructors needed since we are only 
+// storing primitive data types in each field.
+struct Triangle{
+    unsigned int i1,i2,i3;
+};
 
-    std::cout << "My argument is: " << argv[1] << "\n";
+// Here is a vector that holds all of the indicies.
+// Since we are creating it outside of our main,
+// it is a global variable and allocated on the heap memory.
+// NOTE: This is a toy example--but I want you to pay attention
+// that this is allcoated in the 'heap' or otherwise some other
+// globally accessible form of memory.
+std::vector<unsigned int> indiciesList;
+
+// Entry function into our C++ program.
+int main(){
+
+    // This local variable triangleList holds all of the triangles
+    // for our model. We are allocating it on the stack here.
+    // Remember, things allocated on the stack are 'deleted' 
+    // when we exit the function from which they were allocated
+    // (in this case, the main() function).
+    std::vector<Triangle> triangleList;
+
+    // We create a first traingle. It will be made up of
+    // whatever 'vertex' 0, 1, and 2 are. 
+    Triangle t;
+    t.i1=0;
+    t.i2=1;
+    t.i3=2;
+	
+    // Here is a second triangle. This time it is made up
+    // of wherever triangle 2, 1, and 3 are.
+    Triangle t1;
+    t1.i1=2;
+    t1.i2=1;
+    t1.i3=3;
+    
+    // And a third triangle...
+    Triangle t2;
+    t2.i1=2;
+    t2.i2=1;
+    t2.i3=3;
+
+    // We now 'append' each of our traingles to our triangle list.
+    triangleList.push_back(t);
+    triangleList.push_back(t1);
+    triangleList.push_back(t2);
+
+
+    // We can print out some information about each of our vectors.
+    // This tells us how many triangles we have.
+    std::cout << "triangleList.size():" << triangleList.size() << "\n";
+    // Here is another example.
+    // Careful, this tells us the size of a data type.
+    // Do you understand what triangList.data() is giving us access to? Look it up!
+    std::cout << "sizeof(triangleList.data()):" << sizeof(triangleList.data()) << "\n";
+    // Here we print out the size of each 'data type' NOT how much data we have
+    // stored within them.
+    std::cout << "sizeof(triangleList):" << sizeof(triangleList) << "\n";
+    std::cout << "sizeof(Triangle):" << sizeof(Triangle) << "\n";
+
+    // Here is an array with 12 elements, each element that is 4 bytes.
+    // I am also allocating it on the stack, which costs me 48 bytes.
+    unsigned int indicies[] = {0,1,2, 0,3,4, 7,8,9,10,11,12};
+
+    // Let's also add to our 'global indiciesList' some things.
+    // Remember, indiciesList is on the heap.
+    indiciesList.push_back(0);
+    indiciesList.push_back(1);
+    indiciesList.push_back(2);
+    indiciesList.push_back(0);
+    indiciesList.push_back(3);
+
+    // Arrays allocated on the stack will tell me exactly how big the structure is.
+    // That is because the sizeof operator has the exact information needed available
+    // to compute the size.
+    std::cout << "sizeof(indicies) on stack:" << sizeof(indicies) << "\n";
+    // sizeof here only tells me the size of a 'std::vector' type. Be careful!
+    std::cout << "sizeof(indiciesList)     :" << sizeof(indiciesList) << "\n";
 
     return 0;
 }
 ```
 
-### Task 2 - Structs
+**Why is the above example important?** 
 
-structs in C++ while functionally the same as a class (except for the
-default access modifier level) are typically used as plain old
-datatypes--i.e. a way to create a composite data type.
+For two reasons:
 
-Shown below is an example of a struct in C++
-```cpp
+1. [std::vector](http://www.cplusplus.com/reference/vector/vector/) is a nice data structure to assist in implementing your model loader (see next task)
+2. I often have seen students make a mistake when figuring out how much memory to allocate on the GPU end (i.e. when you start using [glBufferData](http://docs.gl/gl3/glBufferData)). I hope the above example at least provides the insight that it is worth printing out how much memory you have allocated.
+3. Many common libraries are structured similarly to the STL set.  For example, the Qt data structure, QVector shares most of the public API (and extends it nicely).
 
-struct VertexData{
-	float x,y,z;
-	float s,t;
-};
+## Part 1 - Render a model
 
-``` It is further important to note the order of our variables in the
-VertexData struct. In memory, they will be arranged as x,y,z,s,t in
-that order. This is potentially convenient as in our current buffer
-data strategy we have been laying out values of the first vertices
-x,y,z,s,t,etc. in a specific order defined by our vertex layout.
+### Task 1 - Model loading
 
-It may further be useful to add a constructor to our struct for
-convenience.
-
-```cpp
-
-struct VertexData{
-	float x,y,z;
-	float s,t;
-
-	VertexData(float _x, float _y, float _z, float _s, float _t): x(_x),y(_y),z(_z),s(_s),t(_t) { }
-};
-
-```
-
-Often with structs, because they are a datatype, it can be helpful to
-define mathematical operators with them. Below a test showing how to
-test for equality is done.
-
-```cpp
-
-struct VertexData{
-	float x,y,z;
-	float s,t;
-
-	VertexData(float _x, float _y, float _z, float _s, float _t): x(_x),y(_y),z(_z),s(_s),t(_t) { }
-	
-	// Tests if two VertexData are equal
-	bool operator== (const VertexData &rhs){
-		if( (x == rhs.x) && (y == rhs.y) && (z == rhs.z) && (s == rhs.s) && (t == rhs.t) ){
-			return true;
-		}
-		return false;
-	}
-};
-
-```
-
-In our previous lab, we passed references to vectors of data for this purpose.  Is this way better?
-
-More information on structs can be found here: 
-- http://www.cplusplus.com/doc/tutorial/structures/
-- https://www.learncpp.com/cpp-tutorial/47-structs/
-
-## Part 2 - Rendering a Textured Model
-
-### Task 1 - .obj and Texture Coordinates 
-
-<img align="right" src="./media/textured.gif" width="300px" alt="picture">
-
-For this assignment you are going to render a single textured 3D
-model. Several are provided in the 'objects' folder. I have personally
-tested with the 'house' model for most of my iterations, so I
-recommend you do the same.
+For this assignment you are going to render a 3D model in the [wavefront .obj format](https://en.wikipedia.org/wiki/Wavefront_.obj_file).
 
 The tasks for rendering in this assignment are the following:
-1. Make sure you can parse the .obj file format and associated material file. 
-	- read in the vertex (v), vertex texture (vt) and face(f) information.
-2. The .obj file should be read in from the command line arguments
-	- e.g. `./lab "./objects/capsule/capsule.obj"`
+1. Make sure you can parse the .obj file format (i.e. read in the vertices and faces). This is your geometry data.
+2. Make sure you can store the geoemtry data.
+3. Make sure you know how to work with vertex buffers.
+ 	- You will also be using an index buffer in order to be more efficient in loading the .obj file.
+ 	- Here is a resource motivating index buffers: [vbo-indexing](http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-9-vbo-indexing/])
 
-### OBJ Format -- continued
+### OBJ Format
 
-The models that you will be loading are in the .obj format. This
-format stores the vertices, texture coordinates, normals, and faces of
-an object (and potentially other information as well). One way to
-become familiar with the OBJ file format is to investigate a simple
-model by opening it in a text editor. Below is a capsule in the .obj
-file format that was exported from the free tool
-[Blender3D](https://www.blender.org/). It may also be worth exploring
-models in 3D modeling and animation tools like Blender3D as well.
+The models that you will be loading are in the .obj format. This format stores the vertices, normals, and faces of an object (and potentially other information as well). The easiest way to become familiar with the OBJ file format is to investigate a 3D Cube model. Here is a cube exported in the .obj file foramt from the free tool [Blender3D](https://www.blender.org/).
 
-<img src="./media/capsule.JPG " width="400px" alt="Textured Capsule in Blender3D">
+![Alt text](./media/cube.png "Cube in Blender3D")
 
-### Parsing Texture Coordinates and the Material Files(.mtl)
+### Parsing the file
 
-For this assignment, now we will also make use of the .mtl file that
-is also generated with .obj files. Let's first take a look at one of
-the provided .obj files "windmill"
-
-### Windmill .obj
-
-What you will notice below, is that the file looks largely the same. However, there are a few new changes we want to pay attention to.
-
-1. There is something called a **mtllib** that specifies which file to use to find material information.
-	- In our case, it is in a file called windmill.mtl that will be described in the next section.
-2. There are **vt** listings for vertex coordinates that folow the long list of (**v**) vertex listings.
-3. There are now vertex texture coordinates for each face that we want to handle.
-	- i.e. A face needs a vertex, vertex texture, and vertex normal index.
-	- (We are still ignoring normals at this point)
-	- Note that the order they are listed in the file, v's followed by vt's followed by vn's means a face is a series of f v/vt/vn v/vt/vn v/vt/vn.
-	
+(For this assignment, ignore the .mtl materials files)
 ```
-# Blender v2.79 (sub 0) OBJ File: ''
-# www.blender.org
-mtllib windmill.mtl
-o WindMill
-v -0.553154 1.064796 -0.746740
-v -0.553154 1.064796 0.653572
-v -0.555058 2.789091 0.648866
-v -0.555058 2.789091 -0.742033
-# More vertices ..
-vt 0.579430 0.005116
-vt 0.786357 0.005169
-vt 0.785661 0.284613
-vt 0.579768 0.284582
-vt 0.100437 0.383934
-vt 0.009483 0.283401
-# ... more data continued
-f 1/1/1 2/2/1 3/3/1 4/4/1
-f 5/5/2 3/6/2 6/7/2
-f 6/7/3 7/8/3 8/9/3 9/10/3
-f 10/11/4 11/12/4 12/13/4 13/14/4
-f 14/15/5 15/16/5 16/17/5 17/18/5
-# ... yet more data continued
+mtllib cube.mtl
+o Cube1
+#8 vertices, 12 faces
+v -1.00000000 -1.00000000 -1.00000000
+v -1.00000000 -1.00000000 1.00000000
+v -1.00000000 1.00000000 -1.00000000
+v -1.00000000 1.00000000 1.00000000
+v 1.00000000 -1.00000000 -1.00000000
+v 1.00000000 -1.00000000 1.00000000
+v 1.00000000 1.00000000 -1.00000000
+v 1.00000000 1.00000000 1.00000000
+vn -0.57735027 -0.57735027 -0.57735027
+vn -0.57735027 -0.57735027 0.57735027
+vn -0.57735027 0.57735027 -0.57735027
+vn -0.57735027 0.57735027 0.57735027
+vn 0.57735027 -0.57735027 -0.57735027
+vn 0.57735027 -0.57735027 0.57735027
+vn 0.57735027 0.57735027 -0.57735027
+vn 0.57735027 0.57735027 0.57735027
+g Cube1_default
+usemtl default
+s 1
+f 1//1 5//5 2//2
+f 2//2 3//3 1//1
+f 2//2 5//5 6//6
+f 2//2 8//8 4//4
+f 3//3 5//5 1//1
+f 3//3 8//8 7//7
+f 4//4 3//3 2//2
+f 4//4 8//8 3//3
+f 5//5 8//8 6//6
+f 6//6 8//8 2//2
+f 7//7 5//5 3//3
+f 7//7 8//8 5//5
 ```
 
-### Windmill Material File
+For this file, the encoding is the following:
+* Lines that start with *v* stands for a 'vertex'.
+	* A vertex has an x,y,z coordinate that follows.
+* Lines that start with *vn* stands for a 'vertex normal'.
+	* A vertex normal is a normalized directional vector(from 0,0,0 to its location)
+* Lines that start with *f* stands for 'face'.
+	* A face can consist of any number of vertices. 
+	* The first number is the index of the vertex we are using. 
+	* The second number after the double slashes (//) is the vertex normal index.
+* The other fields (that start with o, s, or the .mtl file) can be ignored for this assignment.
+* Note that there are no '0' values in the list. This means .obj is 1's based. In most languages we count from 0, so think about what this means when parsing!
 
-```
-# Blender MTL File: 'None'
-# Material Count: 1
+### Task 2 - Interactive graphics
 
-newmtl blinn1SG
-Ns 0.000000
-Ka 0.100000 0.100000 0.100000
-Kd 0.000000 0.000000 0.000000
-Ks 0.000000 0.000000 0.000000
-Ke 0.000000 0.000000 0.000000
-Ni 1.500000
-d 1.000000
-illum 2
-map_Kd windmill_diffuse.ppm
-map_Bump windmill_normal.ppm
-map_Ks windmill_spec.ppm
-```
-
-The windmill material(.mtl) file contains some additional data. The
-first line specifies what the material name is ("blinn1SG"). This is
-the line that will be referred to within the .obj file. The most
-important piece of information otherwise is the 'map_Kd' which says
-where the 'diffuse color' map file is. This is the image where we
-sample colors from and apply them to triangles.
-
-**You may assume one texture per model for this assignment**
-
-A few of the additional fields are specified in [Paul Burke's
-guide](http://paulbourke.net/dataformats/obj/minobj.html), which are
-primarily used for rendering a scene. For now, we are only interested
-in the color.
-
-### Something fishy about our index buffer strategy
-
-`f 5/5/2 3/6/2 6/7/2`
-
-Taking a closer look at one of the lines, I notice that all of the
-numbers are not the same. `3/6/2` for instance, is not nicely packed
-together with the same vertex, vertex texture, and vertex normal. So
-how does this work with our previous index buffer strategy?
-
-http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-9-vbo-indexing/ provides a nice little algorithm I have referenced below: 
-
-> For each input vertex
->
-> &nbsp;&nbsp;Try to find a similar ( = same for all attributes ) vertex between all those we already output
->
-> &nbsp;&nbsp;&nbsp;&nbsp;If found :
->
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A similar vertex is already in the VBO, use it instead !
->
-> &nbsp;&nbsp;&nbsp;&nbsp;If not found :
->
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No similar vertex found, add it to the VBO
-
-I will provide my explanation of the algorithm, but you will need to think about why this makes sense.
-
-1. Let us take these values `5/5/2`, `3/6/2`, and `6/7/2`
-	- The first one `5/5/2` needs the 5th vertex (remember the format v/vt/vn). That means lookup in some data structure, our fifth vertex (a set of x,y,z).
-	- We then repeat this process and pick up the fifth texture data, a pair of (s,t) values.
-	- ( For this assignment, we can ignore the vertex normal)
-2. We can then think of the tuple(5,5,2) as x5,y5,z5,s5,t5. It is a set of unique values, and they may be repeated.
-3. This would be different than the tuple (5,6,2) for instance, which is the five floating point numbers numbers x5,y5,z5,s6,t6.
-4. So in my vertex buffer data between (5,5,2) and (5,6,2) I have the following data all packed together:
-	- x5,y5,z5,s5,t5,x5,y5,z5,s6,t6
-	- My 0th index in my index buffer would pull out the values: x5,y5,z5,s5,t5
-	- My 1st index in my index buffer would pull out the values: x5,y5,z5,s6,t6
-5. Reason about this and think before jumping straight into code.
-6. Also understand you can print out the values and compare them with what you see in the actual .obj file (open up the .obj in a text editor).
-
-### Loading your own models for this assignment
-
-It is totally fine to provide your own school appropriate Textured 3D
-.obj files for this assignment. Some notes that may save you time
-debugging:
-
-- Make sure you push the model, texture(s), and material file to the repository.
-
-- If you use blender3D to export your own .obj model, make sure to
-  scale it to about the size of a unit cube in Blender3D. This will
-  save you time from moving the camera around a lot.
-
-- Triangulate the faces within the blender3D (there is an option when you export)
-
-- Check your material file to make sure it is loading .ppm images
-  which we know how to handle. Use a program like
-  [GIMP](https://www.gimp.org/) to convert them to ASCII format .ppm
-  images otherwise.
-
-- The .ppm image may be 'mirrored', meaning you have to flip it
-  horizontally for the actual texture coordinates to line up with the
-  appropriate vertices.
-
-### Task 2 - Interactive Graphics
+For task 2, we are going to utilize Qt to make our graphics application interactive. 
 
 The tasks for interactivity in this assignment are the following:
-- Pressing the 'w' key toggles drawing your scene in wireframe mode or textured polygon mode.
+- Pressing the 'w' key draws your object in wireframe mode.
 - Pressing the 'q' key exits the application.
+- Pressing the '1' key renders a bunny (which is shown default)
+- Pressing the '2' key renders a monkey
 
-### Task 3 - Perspective Camera
 
-Make sure your scene is being rendered in perspective. Make
-modifications to the vert.glsl as needed. This should be similar to
-what you have done in a previous lab.
-
-### More Assignment strategy 
+### Assignment strategy
 
 My suggested strategy for this project is:
 
-* You can use any of the code from the labs or previous assignments that you may find useful.
+* You can use any of the code from the labs that you may find useful.
 	* In fact, I highly recommend it!
-* Have a special C++ class(in a .h and .cpp file) for loading OBJ models--not doing so is bad style!
-	* Utilize any data structure you like in the STL (e.g. std::vector)
-  	* You may assume all faces are triangles (though if you download any test .obj files from the web that may not be the case)
+* Have a special C++ class (in a .h and .cpp file) for loading OBJ models--not doing so is bad style!
+	* Utilize any data structure you like in the STL, OR in Qt (e.g. std::vector or QVector)
+  	* You may assume all faces are triangles (though if you download additional test .obj files from the web this may not be the case)
 * Think about how you can load a line of text and then split it into individual tokens.
   	* A resource loading files (Filo I/O) in C++ can be found here: http://www.cplusplus.com/doc/tutorial/files/
+	* Feel free to use the utilities provided by Qt - This can make your life potentially easier!
   	* The reference on strings may be useful: http://www.cplusplus.com/reference/string/string/
     		* Some ideas on string splitting: http://www.martinbroadhurst.com/how-to-split-a-string-in-c.html
 * You do not need to use any complex shaders. In fact, I recommend using the most basic ones for this assignment.
-* I recommend using this webpage for help with OpenGL: http://docs.gl/gl3/glPolygonMode
+* I recommend using the [docs.gl](http://docs.gl/gl3/glPolygonMode) webpage for help with OpenGL. 
+* Note, that we do not yet have a camera, so you may be inside the object--consider that when you are rendering (in the case of the cube for example, you will see an 'X' in your display).
 
 ## How to run your program
 
-Your solution should compile using the CMakeLists.txt type build system we have been using all class.
-
-Your program should then run by typing in: `./App "./objects/capsule/capsule.obj"`  -OR- by selecting a valid .obj file from a menu option
+Your solution should compile using the CMake build process.
 
 ## Deliverables
 
-- You should be able to display a triangulated .obj 3D textured model (several are provided).
-	- If you would like you can make it spin, move around, or load multiple models. Please just document this in this readme.
+- You should be able to load and display a bunny.obj and monkey.obj 
+	- The ./objects directory in your repository has some sample models.
+	- You can substitute these models with other .obj's you find if you like.
+- Your solution should be interactive, and utilize the w,q,1,2 keys as described in Part 1 Task 2
 
-* You need to commit your code to this repository.  You need to use
-* CMake to build. Anything else used is at your own risk--and you
-* should provide complete documentation. If your program does not
-* compile and run, you get a zero!
+* You need to commit your code to this repository.
+* You need to use the build.py script provided. Anything else used is at your own risk--and you should provide complete documentation. If your program does not compile and run, you get a zero!
 
 ## Rubric
 
@@ -354,35 +251,39 @@ Your program should then run by typing in: `./App "./objects/capsule/capsule.obj
     </tr>
     <tr>
       <td>30% (Core)</td>
-      <td align="left">Is the code clearly documented? Are there no memory leaks? Did you close the file after opening it? How well was your abstraction to create a loader (or was it one giant ugly main function)? Did you make sure your code worked with the 'build.py' or did we have a headache compiling your code? Did you read in the model from the command line arguments or hard code the path?</td>
+      <td align="left"><ul><li>Is the code clearly documented?</li><li>Are there no memory leaks?</li><li>Did you close the file after opening it?</li><li>How well was your abstraction to create a loader (or was it one giant ugly main function)?</li><li>Did you make sure your code worked with the 'build.py' or did we have a headache compiling your code?</li></ul></td>
     </tr>   
     <tr>
       <td>40% (Core)</td>
-      <td align="left">(20%)Can you render at least the geometry correctly? (10%) Did you implement the interactive components of this assignment? (10%) Did you implement a perspective camera</td>
+      <td align="left"><ul><li>(15%) At the very least, does the cube render?</li><li>(15%) Are you off by one for rendering vertices?</li><li>(10%) Did you create only two buffers for your objects? (Creating them over and over is wrong!)</li></ul></td>
     </tr>
-      <td>30% (Advanced)</td>
-      <td align="left">(10%) Can I render a really large textured .obj model? (20%) Are the texture coordinates correct?</td>
+    <tr>
+      <td>20% (Intermediate)</td>
+      <td align="left"><ul><li>(5%) Can you render the bunny(by pressing the '1' key) and the monkey .obj provided(by pressing the '2' key)?</li><li>(5%) Did you use the index buffering strategy?</li><li>(5%) Can I render the objects filled and in wireframe by pressing the 'w' key.</li><li>(5%) Does the 'q' key exit the program.</li></ul></td>
+    </tr>
+    <tr>
+      <td>10% (Advanced)</td>
+      <td align="left"><ul><li>(5%) Can I render a really large .obj model (> 10,000 triangles)?</li><li>(5%) If I load an .obj file that includes texture coordinates, does your loader crash?</li></ul> </td>
     </tr>
   </tbody>
 </table>
 
+* Core is the material everyone can get through. I expect everyone to complete this. Coming to class, listening to lectures, and reviewing materials should be sufficient.
+* Intermediate is a little more difficult. Very likely you will have to utilize office hours, piazza, etc.
+* Advanced is more challenging. You will have to spend more time and very likely use outside materials. I do not expect everyone to complete the advanced section.
+
 ## More Resources
 
-(New for this assignment)
-* http://paulbourke.net/dataformats/obj/minobj.html (I recommend reading this one first for a minimal texture example)
-
-
-Links on the OBJ Model Format (From last assignment)
-* https://people.cs.clemson.edu/~dhouse/courses/405/docs/brief-obj-file-format.html (I recommend reading this one for more information)
-* https://www.cs.cmu.edu/~mbz/personal/graphics/obj.html
-* https://en.wikipedia.org/wiki/Wavefront_.obj_file
+* Help with OBJ Model Format
+	* [Briefing on the .obj format](https://people.cs.clemson.edu/~dhouse/courses/405/docs/brief-obj-file-format.html) (I recommend reading this one for more information)
+	* [Another nice writeup on .obj format](https://www.cs.cmu.edu/~mbz/personal/graphics/obj.html)
+	* [wiki page on wavfront .obj format](https://en.wikipedia.org/wiki/Wavefront_.obj_file)
 
 ## F.A.Q
 
 * Q: Why the obj format?
   * A: It is a standard data format understood by most programs.
 * Q: Can I load my own models that I have made to show off?
-  * A: Sure -- just make sure they are added to the repository (Including the texture)
-* Q: Why are my texture coordinates messed up? The geometry looks right?
-  * A: Try a different model first to confirm. Then you may have to flip the texture in a modeling program or within your .ppm loader depending on how the coordinates were assigned. 
-~~~~
+  * A: Sure -- just make sure they are added to the repository.
+* Q: May I use the command line arguments to pass in a default model?
+  * A: Sure -- please document at the top of your readme.md file so I am aware of this feature.

@@ -64,8 +64,11 @@ void Parser::parse(string fileName) {
                         }
                     }
                 }
-
-            } 
+                
+            } else if (tokens[0].compare("vt") == 0) {
+                texturesList.push_back(stof(tokens[1]));
+                texturesList.push_back(stof(tokens[2]));
+            }
         }
     }
 
@@ -85,4 +88,12 @@ vector<GLuint> Parser::getVertexIndices() {
 
 vector<GLuint> Parser::getNormalsIndices() {
     return normalIndices;
+}
+
+vector<GLfloat> Parser::getTextures() {
+    return texturesList;
+}
+
+vector<GLuint> Parser::getTextureIndices() {
+    return texturesIndices;
 }

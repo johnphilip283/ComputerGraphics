@@ -1,4 +1,4 @@
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/rebuild_cache.dir
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/edit_cache.dir
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/App.dir
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/App_autogen.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment_autogen.dir
