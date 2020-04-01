@@ -6,27 +6,31 @@
 
 #IncludeRegexTransform: 
 
-../Application.h
-QtGui
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.cpp
+BasicWidget.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.h
+Parser.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
+vector
 -
-QtCore
+iostream
+-
+
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.h
+QtGui
 -
 QtWidgets
 -
-
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.cpp
-Parser.h
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
-iostream
+QtOpenGL
 -
 vector
 -
-fstream
--
 string
 -
-sstream
--
+Renderable.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Renderable.h
+Parser.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
 
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
 string
@@ -36,7 +40,7 @@ vector
 QtOpenGL
 -
 
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/main.cpp
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Renderable.h
 QtCore
 -
 QtGui
@@ -45,12 +49,6 @@ QtOpenGL
 -
 Parser.h
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
-Parser.cpp
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.cpp
-iostream
--
-Application.h
--
 
 /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtCore.framework/QtCore
 

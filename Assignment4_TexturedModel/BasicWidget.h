@@ -6,7 +6,8 @@
 #include <vector>
 #include <string>
 
-#define USE_COLOR true
+#include "Renderable.h"
+#include "Parser.h"
  
 using namespace std;
 
@@ -18,16 +19,19 @@ class BasicWidget : public QOpenGLWidget, protected QOpenGLFunctions
   Q_OBJECT
 
 private:
-  QString vertexShaderString() const;
-  QString fragmentShaderString() const;
-  void createShader();
-  QOpenGLVertexArrayObject vao_;
-  vector<GLfloat> bunny_vertices;
-  vector<GLuint> bunny_indices;
-  vector<GLfloat> monkey_vertices;
-  vector<GLuint> monkey_indices;
-  bool is_bunny;
-  bool show_wireframe;
+  GLboolean isWireframe;
+
+  QMatrix4x4 model_;
+  QMatrix4x4 view_;
+  QMatrix4x4 projection_;
+  
+  QElapsedTimer frameTimer_;
+
+  QVector<Renderable*> renderables_;
+
+  QOpenGLDebugLogger logger_;
+
+  
 protected:
   // Required interaction overrides
   void keyReleaseEvent(QKeyEvent* keyEvent) override;
@@ -36,13 +40,6 @@ protected:
   void initializeGL() override;
   void resizeGL(int w, int h) override;
   void paintGL() override;
-
-  QOpenGLShaderProgram shaderProgram_;
-  QOpenGLBuffer b_vbo_;
-  QOpenGLBuffer b_ibo_;
-  QOpenGLBuffer m_ibo_;
-  QOpenGLBuffer m_vbo_;
-
 
 public:
   BasicWidget(QWidget* parent=nullptr);

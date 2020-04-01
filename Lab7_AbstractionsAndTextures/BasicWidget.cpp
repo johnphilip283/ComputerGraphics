@@ -90,22 +90,21 @@ Renderable* BasicWidget::createRenderable(QVector3D start, QString path) {
   Renderable* ren = new Renderable();
   ren->init(pos, norm, texCoord, idx, path);
   return ren;
-
 }
 
 void BasicWidget::resizeGL(int w, int h)
 {
-    if (!logger_.isLogging()) {
-        logger_.initialize();
-        // Setup the logger for real-time messaging
-        connect(&logger_, &QOpenGLDebugLogger::messageLogged, [=]() {
-            const QList<QOpenGLDebugMessage> messages = logger_.loggedMessages();
-            for (auto msg : messages) {
-                qDebug() << msg;
-            }
-            });
-        logger_.startLogging();
-    }
+  if (!logger_.isLogging()) {
+    logger_.initialize();
+    // Setup the logger for real-time messaging
+    connect(&logger_, &QOpenGLDebugLogger::messageLogged, [=]() {
+      const QList<QOpenGLDebugMessage> messages = logger_.loggedMessages();
+      for (auto msg : messages) {
+        qDebug() << msg;
+      }
+    });
+    logger_.startLogging();
+  }
   glViewport(0, 0, w, h);
   view_.setToIdentity();
   view_.lookAt(QVector3D(0.0f, 0.0f, 2.0f),
@@ -126,8 +125,8 @@ void BasicWidget::paintGL()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   for (auto renderable : renderables_) {
-      renderable->update(msSinceRestart);
-      renderable->draw(view_, projection_);
+    renderable->update(msSinceRestart);
+    renderable->draw(view_, projection_);
   }
   update();
 }

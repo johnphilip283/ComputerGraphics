@@ -11,19 +11,27 @@ class Parser {
     public:
         Parser();
         ~Parser();
-        void parse(string filename);
-        vector<GLfloat> getVertices();
-        vector<GLfloat> getNormals();
-        vector<GLuint> getVertexIndices();
-        vector<GLuint> getNormalsIndices();
-        vector<GLfloat> getTextures();
-        vector<GLuint> getTextureIndices();
+        void parse(string objFile);
+        QVector<QVector3D> getVertices();
+        QVector<QVector2D> getTextures();
+        QVector<QVector3D> getNormals();
+        QVector<GLuint> getVertexIndices();
+        QVector<GLuint> getTextureIndices();
+        QVector<GLuint> getNormalsIndices();
+        string getPPMFile();
+        QVector<float> getFinalData();
+        QVector<GLuint> getFinalIndices();
     private:
-        vector<GLfloat> verticesList;
-        vector<GLfloat> normalsList;
-        vector<GLuint> vertexIndices;
-        vector<GLuint> normalIndices;
-        vector<GLfloat> texturesList;
-        vector<GLuint> texturesIndices;
+        void parseMtlFile(string mtlFile, string objFile);
+        void loadData();
+        string ppmFile;
+        QVector<float> finalData;
+        QVector<GLuint> finalIndices;
+        QVector<QVector3D> vertices;
+        QVector<QVector2D> textures;
+        QVector<QVector3D> normals;
+        QVector<GLuint> vertexIndices;
+        QVector<GLuint> normalIndices;
+        QVector<GLuint> textureIndices;
 };
 #endif

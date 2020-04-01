@@ -7,9 +7,6 @@
 #include <QtOpenGL>
 
 // Lab application
-#include "Parser.h"
-#include "Parser.cpp"
-
 #include <iostream>
 
 #include <Application.h>
