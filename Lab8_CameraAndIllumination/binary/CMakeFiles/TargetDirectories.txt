@@ -1,0 +1,4 @@
+/Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination/binary/CMakeFiles/rebuild_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination/binary/CMakeFiles/edit_cache.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination/binary/CMakeFiles/App.dir
+/Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination/binary/CMakeFiles/App_autogen.dir
