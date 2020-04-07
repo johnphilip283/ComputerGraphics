@@ -7,6 +7,8 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/Application.cpp.o"
   "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/Assignment_autogen/mocs_compilation.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/Assignment_autogen/mocs_compilation.cpp.o"
   "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/BasicWidget.cpp.o"
+  "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/Parser.cpp.o"
+  "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Renderable.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/Renderable.cpp.o"
   "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/main.cpp" "/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/binary/CMakeFiles/Assignment.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")

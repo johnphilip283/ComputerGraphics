@@ -6,36 +6,18 @@
 
 #IncludeRegexTransform: 
 
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.cpp
-BasicWidget.h
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.h
-Parser.h
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
+string
+-
 vector
--
-iostream
--
-
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.h
-QtGui
--
-QtWidgets
 -
 QtOpenGL
 -
-vector
--
-string
--
+
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Renderable.cpp
 Renderable.h
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Renderable.h
-Parser.h
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
-
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
-string
--
-vector
+QtGui
 -
 QtOpenGL
 -
@@ -55,6 +37,4 @@ Parser.h
 /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtGui.framework/QtGui
 
 /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtOpenGL.framework/QtOpenGL
-
-/Users/johnphilip/Qt/5.14.0/clang_64/lib/QtWidgets.framework/QtWidgets
 

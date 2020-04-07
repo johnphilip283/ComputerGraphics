@@ -32,6 +32,17 @@ CMakeFiles/Assignment.dir/BasicWidget.cpp.o: /Users/johnphilip/Qt/5.14.0/clang_6
 CMakeFiles/Assignment.dir/BasicWidget.cpp.o: /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtOpenGL.framework/QtOpenGL
 CMakeFiles/Assignment.dir/BasicWidget.cpp.o: /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtWidgets.framework/QtWidgets
 
+CMakeFiles/Assignment.dir/Parser.cpp.o: ../Parser.cpp
+CMakeFiles/Assignment.dir/Parser.cpp.o: ../Parser.h
+CMakeFiles/Assignment.dir/Parser.cpp.o: /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtOpenGL.framework/QtOpenGL
+
+CMakeFiles/Assignment.dir/Renderable.cpp.o: ../Parser.h
+CMakeFiles/Assignment.dir/Renderable.cpp.o: ../Renderable.cpp
+CMakeFiles/Assignment.dir/Renderable.cpp.o: ../Renderable.h
+CMakeFiles/Assignment.dir/Renderable.cpp.o: /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtCore.framework/QtCore
+CMakeFiles/Assignment.dir/Renderable.cpp.o: /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtGui.framework/QtGui
+CMakeFiles/Assignment.dir/Renderable.cpp.o: /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtOpenGL.framework/QtOpenGL
+
 CMakeFiles/Assignment.dir/main.cpp.o: ../Application.h
 CMakeFiles/Assignment.dir/main.cpp.o: ../main.cpp
 CMakeFiles/Assignment.dir/main.cpp.o: /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtCore.framework/QtCore
