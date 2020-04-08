@@ -104,7 +104,7 @@ void BasicWidget::paintGL()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glPolygonMode(GL_FRONT_AND_BACK, isWireframe ? GL_LINE : GL_FILL);
-n
+
   for (auto renderable : renderables_) {
       renderable->update(msSinceRestart);
       renderable->draw(view_, projection_);
