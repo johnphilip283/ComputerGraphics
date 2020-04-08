@@ -126,7 +126,7 @@ void BasicWidget::initializeGL()
   Parser bunny_parser;
   Parser monkey_parser;
   
-  bunny_parser.parse("../objects/bunny_centered.obj");
+  bunny_parser.parse("../objects/house/house_obj.obj");
   monkey_parser.parse("../objects/monkey_centered.obj");
 
   bunny_vertices = bunny_parser.getVertices();
@@ -177,7 +177,7 @@ void BasicWidget::resizeGL(int w, int h)
 
 void BasicWidget::paintGL()
 {
-  glDisable(GL_DEPTH_TEST);
+  glEnable(GL_DEPTH_TEST);
   glDisable(GL_CULL_FACE);
 
   glClearColor(0.f, 0.f, 0.f, 1.f);
