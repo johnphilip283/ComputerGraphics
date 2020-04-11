@@ -133,12 +133,12 @@ void BasicWidget::setupViewQuad()
 void BasicWidget::setupShaders()
 {
     // TODO:  You may need to change these paths based on how/where you choose to build
-    QString vertexFilename = "../../FBOVert.glsl";
+    QString vertexFilename = "../FBOVert.glsl";
     bool ok = shader_.addShaderFromSourceFile(QOpenGLShader::Vertex, vertexFilename);
     if (!ok) {
         qDebug() << shader_.log();
     }
-    QString fragmentFilename = "../../FBOFrag.glsl";
+    QString fragmentFilename = "../FBOFrag.glsl";
     ok = shader_.addShaderFromSourceFile(QOpenGLShader::Fragment, fragmentFilename);
     if (!ok) {
         qDebug() << shader_.log();
@@ -180,7 +180,7 @@ void BasicWidget::initializeGL()
 
   qDebug() << QDir::currentPath();
   // TODO:  You may have to change these paths.
-  QString terrainTex = "../../colormap.ppm";
+  QString terrainTex = "../colormap.ppm";
 
   TerrainQuad* terrain = new TerrainQuad();
   terrain->init(terrainTex);
@@ -218,8 +218,8 @@ void BasicWidget::paintGL()
 
   // Create an FBO the same size as our window.
   // TODO:  This is wasteful -- do we really NEED to create a new FBO every frame?!
-  QOpenGLFramebufferObject fbo(size(), QOpenGLFramebufferObject::CombinedDepthStencil);
-
+  QOpenGLFramebufferObject fbo(size(), QOpenGLFramebufferObject::CombinedDepthStencil); 
+  
   // Bind our FBO.
   // This make our current render target the framebuffer that we have bound.  We will not
   // be seeing any imagery from now on!
