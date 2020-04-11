@@ -25,8 +25,8 @@ void TerrainQuad::init(const QString& textureFile)
     QVector3D normal(0.0, 1.0, 0.0);
 
     // TODO:  You may need to change the path here.
-    QImage heightImage("../../terrain2.ppm");
-
+    QImage heightImage("../terrain2.ppm");
+    float width = heightImage.width();
     unsigned int curIdx = 0;
     // Populate our grid
     for (unsigned int r = 0; r < numRows+1; ++r) {
@@ -36,7 +36,7 @@ void TerrainQuad::init(const QString& textureFile)
             float x = c * colStep;
             // TODO - Before changing anything in the shaders, we can get heightmapping
             // to work by changing this y coordinate.  Implement this now to create a heightmap!
-            float y = 0.0;
+            float y = heightImage.pixelColor(z * (width - 1), x * (width - 1)).red() / width;
             // Be explicit about our texture coords
             float u = z;
             float v = x;
@@ -119,7 +119,7 @@ void TerrainQuad::draw(const QMatrix4x4& world, const QMatrix4x4& view, const QM
 //    shader_.setUniformValue("tex", GL_TEXTURE0);
 //    shader_.setUniformValue("colorTex", GL_TEXTURE1 - GL_TEXTURE0);
     for (int s = 0; s < numStrips_; ++s) {
-        // TODO:  Draw the correct number of triangle strips using glDrawElements
+        glDrawElements(GL_TRIANGLE_STRIP, numIdxPerStrip_, GL_UNSIGNED_INT, (const GLvoid*)(s * numIdxPerStrip_ * sizeof(unsigned int)));
     }
 //    heightTexture_.release();
     texture_.release();
