@@ -6,14 +6,18 @@
 
 #IncludeRegexTransform: 
 
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.cpp
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.cpp
+Application.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.h
 BasicWidget.h
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.h
-Parser.h
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
-vector
+
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.h
+QtGui
 -
-iostream
+QtCore
+-
+QtWidgets
 -
 
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.h

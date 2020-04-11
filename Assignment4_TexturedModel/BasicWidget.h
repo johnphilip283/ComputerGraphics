@@ -40,9 +40,10 @@ protected:
   void initializeGL() override;
   void resizeGL(int w, int h) override;
   void paintGL() override;
+  string objFile;
 
 public:
-  BasicWidget(QWidget* parent=nullptr);
+  BasicWidget(string objFile, QWidget* parent=nullptr);
   virtual ~BasicWidget();
   
   // Make sure we have some size that makes sense.

@@ -8,8 +8,9 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////////
 // Publics
-BasicWidget::BasicWidget(QWidget* parent) : QOpenGLWidget(parent), logger_(this)
+BasicWidget::BasicWidget(string objFile, QWidget* parent) : QOpenGLWidget(parent), logger_(this)
 {
+  this->objFile = objFile;
   setFocusPolicy(Qt::StrongFocus);
   isWireframe = false;
 }
@@ -54,11 +55,9 @@ void BasicWidget::initializeGL()
   qDebug() << "  Version: " << reinterpret_cast<const char*>(glGetString(GL_VERSION));
   qDebug() << "  GLSL Version: " << reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-  // TODO: Get command line stuff working.
-
   Parser test;
 
-  test.parse("../objects/house/house_obj.obj");
+  test.parse(objFile);
 
   Renderable* ren = new Renderable();
   ren->init(test);
