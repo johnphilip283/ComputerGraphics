@@ -57,6 +57,8 @@ void BasicWidget::initializeGL()
 
   Parser test;
 
+  std::cout << "object file" << objFile << std::endl;
+  
   test.parse(objFile);
 
   Renderable* ren = new Renderable();

@@ -6,18 +6,14 @@
 
 #IncludeRegexTransform: 
 
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.cpp
-Application.h
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.cpp
 BasicWidget.h
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.h
-
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Application.h
-QtGui
+Parser.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
+vector
 -
-QtCore
--
-QtWidgets
+iostream
 -
 
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/BasicWidget.h
@@ -35,6 +31,20 @@ Renderable.h
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Renderable.h
 Parser.h
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
+
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.cpp
+Parser.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
+iostream
+-
+vector
+-
+fstream
+-
+string
+-
+sstream
+-
 
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment4_TexturedModel/Parser.h
 string

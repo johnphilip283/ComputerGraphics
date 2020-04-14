@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Parser.h
+string
+-
+vector
+-
+QtOpenGL
+-
+
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Renderable.cpp
+Renderable.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Renderable.h
+iostream
+-
+QtGui
+-
+QtOpenGL
+-
+
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Renderable.h
+QtCore
+-
+QtGui
+-
+QtOpenGL
+-
+Parser.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Parser.h
+
+/Users/johnphilip/Qt/5.14.0/clang_64/lib/QtCore.framework/QtCore
+
+/Users/johnphilip/Qt/5.14.0/clang_64/lib/QtGui.framework/QtGui
+
+/Users/johnphilip/Qt/5.14.0/clang_64/lib/QtOpenGL.framework/QtOpenGL
+

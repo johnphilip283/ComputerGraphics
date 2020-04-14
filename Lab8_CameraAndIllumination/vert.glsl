@@ -13,8 +13,7 @@ out vec2 texCoords;
 out vec3 norm;
 out vec3 fragPos;
 
-void main()
-{
+void main() {
     // We have our transformed position set properly now
     gl_Position = projectionMatrix*viewMatrix*modelMatrix*vec4(position, 1.0);
     // Our fragment pos for lighting.

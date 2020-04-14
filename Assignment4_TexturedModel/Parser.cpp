@@ -92,6 +92,7 @@ void Parser::loadData() {
 
 void Parser::parseMtlFile(string mtlFile, string objFile) {
 
+    std::cout << "mtlFile: " << mtlFile << " object file: " << objFile << std::endl;
     ifstream inFile;
     string line;
     vector<string> tokens;
@@ -110,7 +111,7 @@ void Parser::parseMtlFile(string mtlFile, string objFile) {
                 ppmFile = relPath + "/" + tokens[1];
             }
         }
-    }
+    } 
 }
 
 string Parser::getPPMFile() const {
