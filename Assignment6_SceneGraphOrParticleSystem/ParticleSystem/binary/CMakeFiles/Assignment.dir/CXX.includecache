@@ -6,6 +6,46 @@
 
 #IncludeRegexTransform: 
 
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/BasicWidget.cpp
+BasicWidget.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/BasicWidget.h
+Parser.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Parser.h
+Emitter.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Emitter.h
+vector
+-
+iostream
+-
+
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/BasicWidget.h
+QtGui
+-
+QtWidgets
+-
+QtOpenGL
+-
+vector
+-
+string
+-
+Renderable.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Renderable.h
+Parser.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Parser.h
+Emitter.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Emitter.h
+
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Emitter.h
+QtCore
+-
+QtGui
+-
+Particle.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Particle.h
+Renderable.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Renderable.h
+
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Parser.h
 string
 -
@@ -14,15 +54,13 @@ vector
 QtOpenGL
 -
 
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Renderable.cpp
-Renderable.h
-/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Renderable.h
-iostream
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Particle.h
+QtCore
 -
 QtGui
 -
-QtOpenGL
--
+Renderable.h
+/Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Renderable.h
 
 /Users/johnphilip/Desktop/ComputerGraphics/Assignment6_SceneGraphOrParticleSystem/ParticleSystem/Renderable.h
 QtCore
@@ -39,4 +77,6 @@ Parser.h
 /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtGui.framework/QtGui
 
 /Users/johnphilip/Qt/5.14.0/clang_64/lib/QtOpenGL.framework/QtOpenGL
+
+/Users/johnphilip/Qt/5.14.0/clang_64/lib/QtWidgets.framework/QtWidgets
 
