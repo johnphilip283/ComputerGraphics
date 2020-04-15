@@ -10,8 +10,8 @@
 
 ## Modify this section
 
-- How many hours did it take you to complete this lab?
-- Did you collaborate with any other students/TAs/Professors?
+- How many hours did it take you to complete this lab? 2
+- Did you collaborate with any other students/TAs/Professors? Judy Wong
 - Did you use any external resources? (Cite them below)
   - tbd
   - tbd

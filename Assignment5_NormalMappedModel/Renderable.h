@@ -4,6 +4,8 @@
 #include <QtGui>
 #include <QtOpenGL>
 
+#include "Parser.h"
+
 class Renderable
 {
 protected:
@@ -11,8 +13,10 @@ protected:
 	QMatrix4x4 modelMatrix_;
 	// For now, we have only one shader per object
 	QOpenGLShaderProgram shader_;
-	// For now, we have only one texture per object
+
 	QOpenGLTexture texture_;
+	QOpenGLTexture normTexture_;
+
 	// For now, we have a single unified buffer per object
 	QOpenGLBuffer vbo_;
 	// Make sure we have an index buffer.
@@ -39,14 +43,15 @@ public:
 	// currently don't use normals in our implementation, but the array is checked
 	// for the appropriate size.  The values can be all 0, but must be the same size as
 	// the position array!
-	virtual void init(const QVector<QVector3D>& positions, const QVector<QVector3D>& normals, const QVector<QVector2D>& texCoords, const QVector<unsigned int>& indexes, const QString& textureFile);
+	virtual void init(const QVector<QVector3D>& positions, const QVector<QVector3D>& normals, const QVector<QVector2D>& texCoords, const QVector<unsigned int>& indexes, const QVector<QVector3D> tangents, const QVector<QVector3D> bitangents,const QString& textureFile, const QString& normalFile);
 	virtual void update(const qint64 msSinceLastFrame);
-	virtual void draw(const QMatrix4x4& world, const QMatrix4x4& view, const QMatrix4x4& projection);
+	virtual void draw(const QMatrix4x4& view, const QMatrix4x4& projection);
 
 	void setModelMatrix(const QMatrix4x4& transform);
 	void setRotationAxis(const QVector3D& axis);
 	void setRotationSpeed(float speed);
 
 private:
+	Parser parser;
 
 };

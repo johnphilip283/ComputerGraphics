@@ -48,10 +48,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination
+CMAKE_SOURCE_DIR = /Users/johnphilip/Desktop/test/ComputerGraphics/Assignment5_NormalMappedModel
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination/binary
+CMAKE_BINARY_DIR = /Users/johnphilip/Desktop/test/ComputerGraphics/Assignment5_NormalMappedModel/binary
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination/binary/CMakeFiles /Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination/binary/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/johnphilip/Desktop/test/ComputerGraphics/Assignment5_NormalMappedModel/binary/CMakeFiles /Users/johnphilip/Desktop/test/ComputerGraphics/Assignment5_NormalMappedModel/binary/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination/binary/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/johnphilip/Desktop/test/ComputerGraphics/Assignment5_NormalMappedModel/binary/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,84 +111,84 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named App
+# Target rules for targets named Assignment
 
 # Build rule for target.
-App: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 App
-.PHONY : App
+Assignment: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Assignment
+.PHONY : Assignment
 
 # fast build rule for target.
-App/fast:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/build
-.PHONY : App/fast
+Assignment/fast:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/build
+.PHONY : Assignment/fast
 
 #=============================================================================
-# Target rules for targets named App_autogen
+# Target rules for targets named Assignment_autogen
 
 # Build rule for target.
-App_autogen: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 App_autogen
-.PHONY : App_autogen
+Assignment_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Assignment_autogen
+.PHONY : Assignment_autogen
 
 # fast build rule for target.
-App_autogen/fast:
-	$(MAKE) -f CMakeFiles/App_autogen.dir/build.make CMakeFiles/App_autogen.dir/build
-.PHONY : App_autogen/fast
+Assignment_autogen/fast:
+	$(MAKE) -f CMakeFiles/Assignment_autogen.dir/build.make CMakeFiles/Assignment_autogen.dir/build
+.PHONY : Assignment_autogen/fast
 
-App.o: App.cpp.o
+Application.o: Application.cpp.o
 
-.PHONY : App.o
-
-# target to build an object file
-App.cpp.o:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/App.cpp.o
-.PHONY : App.cpp.o
-
-App.i: App.cpp.i
-
-.PHONY : App.i
-
-# target to preprocess a source file
-App.cpp.i:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/App.cpp.i
-.PHONY : App.cpp.i
-
-App.s: App.cpp.s
-
-.PHONY : App.s
-
-# target to generate assembly for a file
-App.cpp.s:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/App.cpp.s
-.PHONY : App.cpp.s
-
-App_autogen/mocs_compilation.o: App_autogen/mocs_compilation.cpp.o
-
-.PHONY : App_autogen/mocs_compilation.o
+.PHONY : Application.o
 
 # target to build an object file
-App_autogen/mocs_compilation.cpp.o:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/App_autogen/mocs_compilation.cpp.o
-.PHONY : App_autogen/mocs_compilation.cpp.o
+Application.cpp.o:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Application.cpp.o
+.PHONY : Application.cpp.o
 
-App_autogen/mocs_compilation.i: App_autogen/mocs_compilation.cpp.i
+Application.i: Application.cpp.i
 
-.PHONY : App_autogen/mocs_compilation.i
+.PHONY : Application.i
 
 # target to preprocess a source file
-App_autogen/mocs_compilation.cpp.i:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/App_autogen/mocs_compilation.cpp.i
-.PHONY : App_autogen/mocs_compilation.cpp.i
+Application.cpp.i:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Application.cpp.i
+.PHONY : Application.cpp.i
 
-App_autogen/mocs_compilation.s: App_autogen/mocs_compilation.cpp.s
+Application.s: Application.cpp.s
 
-.PHONY : App_autogen/mocs_compilation.s
+.PHONY : Application.s
 
 # target to generate assembly for a file
-App_autogen/mocs_compilation.cpp.s:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/App_autogen/mocs_compilation.cpp.s
-.PHONY : App_autogen/mocs_compilation.cpp.s
+Application.cpp.s:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Application.cpp.s
+.PHONY : Application.cpp.s
+
+Assignment_autogen/mocs_compilation.o: Assignment_autogen/mocs_compilation.cpp.o
+
+.PHONY : Assignment_autogen/mocs_compilation.o
+
+# target to build an object file
+Assignment_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Assignment_autogen/mocs_compilation.cpp.o
+.PHONY : Assignment_autogen/mocs_compilation.cpp.o
+
+Assignment_autogen/mocs_compilation.i: Assignment_autogen/mocs_compilation.cpp.i
+
+.PHONY : Assignment_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+Assignment_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Assignment_autogen/mocs_compilation.cpp.i
+.PHONY : Assignment_autogen/mocs_compilation.cpp.i
+
+Assignment_autogen/mocs_compilation.s: Assignment_autogen/mocs_compilation.cpp.s
+
+.PHONY : Assignment_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+Assignment_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Assignment_autogen/mocs_compilation.cpp.s
+.PHONY : Assignment_autogen/mocs_compilation.cpp.s
 
 BasicWidget.o: BasicWidget.cpp.o
 
@@ -196,7 +196,7 @@ BasicWidget.o: BasicWidget.cpp.o
 
 # target to build an object file
 BasicWidget.cpp.o:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/BasicWidget.cpp.o
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/BasicWidget.cpp.o
 .PHONY : BasicWidget.cpp.o
 
 BasicWidget.i: BasicWidget.cpp.i
@@ -205,7 +205,7 @@ BasicWidget.i: BasicWidget.cpp.i
 
 # target to preprocess a source file
 BasicWidget.cpp.i:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/BasicWidget.cpp.i
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/BasicWidget.cpp.i
 .PHONY : BasicWidget.cpp.i
 
 BasicWidget.s: BasicWidget.cpp.s
@@ -214,35 +214,35 @@ BasicWidget.s: BasicWidget.cpp.s
 
 # target to generate assembly for a file
 BasicWidget.cpp.s:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/BasicWidget.cpp.s
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/BasicWidget.cpp.s
 .PHONY : BasicWidget.cpp.s
 
-Camera.o: Camera.cpp.o
+Parser.o: Parser.cpp.o
 
-.PHONY : Camera.o
+.PHONY : Parser.o
 
 # target to build an object file
-Camera.cpp.o:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/Camera.cpp.o
-.PHONY : Camera.cpp.o
+Parser.cpp.o:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Parser.cpp.o
+.PHONY : Parser.cpp.o
 
-Camera.i: Camera.cpp.i
+Parser.i: Parser.cpp.i
 
-.PHONY : Camera.i
+.PHONY : Parser.i
 
 # target to preprocess a source file
-Camera.cpp.i:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/Camera.cpp.i
-.PHONY : Camera.cpp.i
+Parser.cpp.i:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Parser.cpp.i
+.PHONY : Parser.cpp.i
 
-Camera.s: Camera.cpp.s
+Parser.s: Parser.cpp.s
 
-.PHONY : Camera.s
+.PHONY : Parser.s
 
 # target to generate assembly for a file
-Camera.cpp.s:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/Camera.cpp.s
-.PHONY : Camera.cpp.s
+Parser.cpp.s:
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Parser.cpp.s
+.PHONY : Parser.cpp.s
 
 Renderable.o: Renderable.cpp.o
 
@@ -250,7 +250,7 @@ Renderable.o: Renderable.cpp.o
 
 # target to build an object file
 Renderable.cpp.o:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/Renderable.cpp.o
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Renderable.cpp.o
 .PHONY : Renderable.cpp.o
 
 Renderable.i: Renderable.cpp.i
@@ -259,7 +259,7 @@ Renderable.i: Renderable.cpp.i
 
 # target to preprocess a source file
 Renderable.cpp.i:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/Renderable.cpp.i
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Renderable.cpp.i
 .PHONY : Renderable.cpp.i
 
 Renderable.s: Renderable.cpp.s
@@ -268,7 +268,7 @@ Renderable.s: Renderable.cpp.s
 
 # target to generate assembly for a file
 Renderable.cpp.s:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/Renderable.cpp.s
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/Renderable.cpp.s
 .PHONY : Renderable.cpp.s
 
 UnitQuad.o: UnitQuad.cpp.o
@@ -277,7 +277,7 @@ UnitQuad.o: UnitQuad.cpp.o
 
 # target to build an object file
 UnitQuad.cpp.o:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/UnitQuad.cpp.o
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/UnitQuad.cpp.o
 .PHONY : UnitQuad.cpp.o
 
 UnitQuad.i: UnitQuad.cpp.i
@@ -286,7 +286,7 @@ UnitQuad.i: UnitQuad.cpp.i
 
 # target to preprocess a source file
 UnitQuad.cpp.i:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/UnitQuad.cpp.i
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/UnitQuad.cpp.i
 .PHONY : UnitQuad.cpp.i
 
 UnitQuad.s: UnitQuad.cpp.s
@@ -295,7 +295,7 @@ UnitQuad.s: UnitQuad.cpp.s
 
 # target to generate assembly for a file
 UnitQuad.cpp.s:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/UnitQuad.cpp.s
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/UnitQuad.cpp.s
 .PHONY : UnitQuad.cpp.s
 
 main.o: main.cpp.o
@@ -304,7 +304,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -313,7 +313,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -322,7 +322,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/Assignment.dir/build.make CMakeFiles/Assignment.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -333,20 +333,20 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... App"
-	@echo "... App_autogen"
-	@echo "... App.o"
-	@echo "... App.i"
-	@echo "... App.s"
-	@echo "... App_autogen/mocs_compilation.o"
-	@echo "... App_autogen/mocs_compilation.i"
-	@echo "... App_autogen/mocs_compilation.s"
+	@echo "... Assignment"
+	@echo "... Assignment_autogen"
+	@echo "... Application.o"
+	@echo "... Application.i"
+	@echo "... Application.s"
+	@echo "... Assignment_autogen/mocs_compilation.o"
+	@echo "... Assignment_autogen/mocs_compilation.i"
+	@echo "... Assignment_autogen/mocs_compilation.s"
 	@echo "... BasicWidget.o"
 	@echo "... BasicWidget.i"
 	@echo "... BasicWidget.s"
-	@echo "... Camera.o"
-	@echo "... Camera.i"
-	@echo "... Camera.s"
+	@echo "... Parser.o"
+	@echo "... Parser.i"
+	@echo "... Parser.s"
 	@echo "... Renderable.o"
 	@echo "... Renderable.i"
 	@echo "... Renderable.s"

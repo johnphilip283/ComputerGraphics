@@ -1,261 +1,262 @@
-# Lab 8 - Camera and Illumination
+# Assignment 5 - Render a Normal Mapped .obj model
 
-<img align="right" src="http://www.mshah.io/comp/Spring18/graphics/Lab/7/lab.png" width="400px" alt="picture">
+<img align="right" src="./media/lab.png" width="400px" alt="picture">
 
-> "Lights--Camera--Action!"
 
-**Lab materials must be pushed to your repository one week from now before the next class begins**
+*TODO*: Please edit the following information in your assignment
 
-**Read:** *Labs are designed to be finished in class if you work
-  diligently, but expected to take 1-2 hours outside of class. They
-  are often more 'tutorial' in style, and sometimes the solution may
-  even be provided in pieces for you to type in and
-  experiment. Copying & Pasting is discouraged however--make mistakes,
-  play, and you will further learn the material.*
-
-## Modify this section
-
-- How many hours did it take you to complete this lab? 3
-- Did you collaborate with any other students/TAs/Professors? Judy Wong
-- Did you use any external resources? (Cite them below)
-  - tbd
-  - tbd
-- (Optional) What was your favorite part of the lab?
-- (Optional) How would you improve the lab?
-
-## Logistics
-
-You will be working on your own laptop today.
-
+* Name and partners name(At most 1 partner for this Assignment): John Philip and Judy Wong.
+* How many hours did it take you to complete this Assignment? 10.
+* Did you collaborate or share ideas with any other students/TAs/Professors? No.
+* Did you use any external resources? 
+  * https://learnopengl.com/Advanced-Lighting/Normal-Mapping?fbclid=IwAR0sVGuPi7YnyZiE3wnN4MNU3qcbR_wt1kntaZqfbS9ZcK5f1FqbuM5jOxM
+  * (tbd if any)
+  * (tbd if any)
+* (Optional) What was the most interesting part of the assignment? How would you improve this assignment?
+  
 ## Description
 
-Last lab we rendered a colored triangle and a square to the screen. As a recap:
+The grand finale! err, at least for our .obj model loader. The final
+step we will take is to make use of the normal map and normal data
+with each model. Normal maps allow us to lighten and darken pixels at
+a per-pixel granularity, increasing the realism of our scene.
 
-- We created two textured and moving quads.
+For this assignment you will now need to modify your previous model
+loader to make use of the 'vn' data. By the end of this assignment you
+will have a good understanding of one of the best tricks in graphics
+that most games/movies use!
 
-Today we are going to spend half of our time manipulating our 'view
-matrix' (i.e. the camera), and the other half of the time modifying
-both our vertex and fragment shaders to emulate lights in our scene.
+"But my .obj loader hasn't really been working since ... ever.  What should we do?"
 
-**The good news**: For part 2 I have provided a correct
-  shader. Understanding it will be important for when you implement
-  normal mapping later on.
-
-### Known hacks in this lab
-
-- The normals are all fixed and pointing in the same direction. I took a short-cut for simplicity. :)
-
-## Part 1 - Camera
-
-A good camera can make or break a 3D scene. Today we are going to
-implement a very simple one!
-
-Moving should be relatively straightforward (think about which vector
-you need to modify and what direction), but for the mouseLook, you
-will have to think a little bit about what you are manipulating.
-
-Note: For the mouselook, you may have to scale (i.e. multiply some
-floating point number) how sensitive your mouse is relative to how
-much you move around the screen.
+For this assignment, I will give you 95% credit if you take your lab
+(brick wall with any number of lights) and get a fully working
+vertex/fragment shader pair working.  Then, then last 5% will be
+integrating that into a (working) .obj loader.  Just make sure that
+you are fixing up the little hacky bits with the normals and using a
+real tangent space to light everything!
 
 
-## Part 2 - Light
+### Assignment Strategy
 
-Note: You may use the slides for guidance on completing this task. The
-deliverables section describes your task with some hints.
+Ideally, you are working from your previous assignment as your starter code. Here are my recommendations:
 
-## Part 3 - Multiple Lights
+* If you do not understand tangent space, go back and understand model and world space first.
+  * The idea again is that you can multiply through a 'tangent matrix' (TBN) to figure out how to properly light up fragments based on a normal map at any angle. 
 
-As discussed in lecture, we are augmenting this lab to encapsulate the 
-Multiple Lights lecture which will allow us to get back on track with 
-everything.  In order to satisfy the multiple lights requirements, please
-modify the necessary code (in the fragment shader and UnitQuad/Object::update())
-to incorporate no fewer than 3 lights in your scene.  Please experiment 
-with different light colors at a minimum.  I encourage you to incorporate 
-at least one light of a different type (not omni-directional point light) into
-the scene.  (Make the initial light a spotlight for example).
+* Read the slides and read the tutorial. Normal mapping is all about math. We are diving in a little deep, but I have done some of the setup in the code to assist you. [www.learnopengl.com](https://learnopengl.com/Advanced-Lighting/Normal-Mapping) also provides some good notes on normal mapping.
+* Read the code from slides/labs/etc and understand what is going on.
+* Explore other sources, but cite them! If you find other tutorials please cite them--this is always required.
+* You should scratch your head a few times when you look at the code. When you do this, you should dive into the support code and figure out what things are doing.
+  * You are welcome to abandon the previous code and write something from scratch (creativity is always encouraged in this class if you go above and beyond as well!), but I recommend using at least some parts of the support code or your previous assignments and the starter code provided!
 
-Example shaders for multiple lights have been provided both below and in the 
-repository.  Please note that you will be required to augment these shaders with
-an appropriate loop structure to handle the summation of the contribution of each 
-light.  Please feel free to make use of the lecture slides and any
-online resources you find to complete the assignment.  If you use outside 
-sources, be sure to cite them above!
+## Part 1 - Object-Oriented Programming Strategies (C++ refresh)
 
-### Vertex Shader in a glance
+I want to continue to give a little bit more background on C++ and
+thinking about data. There is no deliverable for part 1, but it will
+be useful to at the very least think about.
 
-This is what you are suppose to implement. Study it.
+### Task 1 Program arguments
 
-```c
-// ==================================================================
-#version 330 core
-// Read in our attributes stored from our vertex buffer object
-// We explicitly state which is the vertex information
-// (The first 3 floats are positional data, we are putting in our vector)
-layout(location=0)in vec3 position; 
-layout(location=1)in vec3 normals; // Our second attribute - normals.
-layout(location=2)in vec2 texCoord; // Our third attribute - texture coordinates.
-layout(location=3)in vec3 tangents; // Our third attribute - texture coordinates.
-layout(location=4)in vec3 bitangents; // Our third attribute - texture coordinates.
+Once again, your .obj loader should read in a model from the program arguments. Below is an example.
 
-// If we are applying our camera, then we need to add some uniforms.
-// Note that the syntax nicely matches glm's mat4!
-uniform mat4 model; // Object space
-uniform mat4 view; // Object space
-uniform mat4 projection; // Object space
+```cpp
+// clang++ args.cpp -o args
+// ./args "./../objects/chapel/chapel_obj.obj"
 
-// Export our normal data, and read it into our frag shader
-out vec3 myNormal;
-// Export our Fragment Position computed in world space
-out vec3 FragPos;
-// If we have texture coordinates we can now use this as well
-out vec2 v_texCoord;
+#include <iostream>
 
+int main(int argc, char** argv){
 
-void main()
-{
+    std::cout << "My argument is: " << argv[1] << "\n";
 
-    gl_Position = projection * view * model * vec4(position, 1.0f);
-
-    myNormal = normals;
-    // Transform normal into world space
-    FragPos = vec3(model* vec4(position,1.0f));
-
-    // Store the texture coordinatests which we will output to
-    // the next stage in the graphics pipeline.
-    v_texCoord = texCoord;
+    return 0;
 }
-// ==================================================================
-
 ```
 
+### Task 2 - Structs
 
-### Fragment Shader in a glance
+**Very small updates from previous assignment here**
 
-This is what you are suppose to implement. Study it.
+structs in C++ while functionally the same as a class (except for the
+default access modifier level) are typically used as plain old
+datatypes--i.e. a way to create a composite data type.
 
-```c
-// ==================================================================
-#version 330 core
+Shown below is an example of a struct in C++
 
-// The final output color of each 'fragment' from our fragment shader.
-out vec4 FragColor;
+```cpp
+struct VertexData{
+	float x,y,z;	// x,y,z positions
+	float xn,yn,zn; // x,y,z normals
+	float s,t;	// s,t texture coordinates
+};
+```
 
-// Our light source data structure
-struct PointLight{
-    vec3 lightColor;
-    vec3 lightPos;
-    float ambientIntensity;
+It is further important to note the order of our variables in the
+VertexData struct. In memory, they will be arranged as
+x,y,z,xn,yn,zn,s,t in that order. This is potentially convenient as in
+our current buffer data strategy we have been laying out values of the
+first vertices x,y,z,xn,yn,zn,s,t,etc. in a specific order defined by
+our vertex layout.  For those of you that might want to use a
+different layout strategy, make sure you understand this!
 
-    float specularStrength;
+It may further be useful to add a constructor to our struct for convenience.
 
-    float constant;
-    float linear;
-    float quadratic;
+```cpp
+struct VertexData{
+	float x,y,z;	// x,y,z positions
+	float xn,yn,zn; // x,y,z normals
+	float s,t;	// s,t texture coordinates
 
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
+	VertexData(float _x, float _y, float _z,float _xn, float _yn, float _zn, float _s, float _t): x(_x),y(_y),z(_z),xn(_xn),yn(_yn),zn(_zn),s(_s),t(_t) { }
+};
+```
+
+Often with structs, because they are a datatype, it can be helpful to
+define mathematical operators with them. Below a test showing how to
+test for equality is done.
+
+```cpp
+
+struct VertexData{
+	float x,y,z;	// x,y,z positions
+	float xn,yn,zn; // x,y,z normals
+	float s,t;		// s,t texture coordinates
+
+	VertexData(float _x, float _y, float _z,float _xn, float _yn, float _zn, float _s, float _t): x(_x),y(_y),z(_z),xn(_xn),yn(_yn),zn(_zn),s(_s),t(_t) { }
+	
+	// Tests if two VertexData are equal
+	bool operator== (const VertexData &rhs){
+		if( (x == rhs.x) && (y == rhs.y) && (z == rhs.z) 
+			 && (xn == rhs.xn) && (yn == rhs.yn) && (zn == rhs.zn) 
+			 && (s == rhs.s) && (t == rhs.t) ){
+			return true;
+		}
+		return false;
+	}
 };
 
-uniform PointLight pointLights[1];
-
-
-// Used for our specular highlights
-uniform mat4 view;
-
-
-// Import our normal data
-in vec3 myNormal;
-// Import our texture coordinates from vertex shader
-in vec2 v_texCoord;
-// Import the fragment position
-in vec3 FragPos;
-
-// If we have texture coordinates, they are stored in this sampler.
-uniform sampler2D u_DiffuseMap; 
-
-void main()
-{
-    // Compute the normal direction
-    vec3 norm = normalize(myNormal);
-    
-    // Store our final texture color
-    vec3 diffuseColor;
-    diffuseColor = texture(u_DiffuseMap, v_texCoord).rgb;
-
-    // (1) Compute ambient light
-    vec3 ambient = pointLights[0].ambientIntensity * pointLights[0].lightColor;
-
-    // (2) Compute diffuse light
-    // From our lights position and the fragment, we can get
-    // a vector indicating direction
-    // Note it is always good to 'normalize' values.
-    vec3 lightDir = normalize(pointLights[0].lightPos - FragPos);
-    // Now we can compute the diffuse light impact
-    float diffImpact = max(dot(norm, lightDir), 0.0);
-    vec3 diffuseLight = diffImpact * pointLights[0].lightColor;
-
-    // (3) Compute Specular lighting
-    vec3 viewPos = vec3(0.0,0.0,0.0);
-    vec3 viewDir = normalize(viewPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, norm);
-
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    vec3 specular = pointLights[0].specularStrength * spec * pointLights[0].lightColor;
-
-    // Calculate Attenuation here
-    // distance and lighting... 
-
-    // Our final color is now based on the texture.
-    // That is set by the diffuseColor
-    vec3 Lighting = diffuseLight + ambient + specular;
-
-    // Final color + "how dark or light to make fragment"
-    if(gl_FrontFacing){
-        FragColor = vec4(diffuseColor * Lighting,1.0);
-    }else{
-        // Additionally color the back side the same color
-         FragColor = vec4(diffuseColor * Lighting,1.0);
-    }
-}
-
 ```
 
-## Helpful Resources
+More information on structs can be found here: 
 
-- [docs.gl](http://docs.gl/) useful programming resource
-- Start writing some OpenGL 3.3 from here! [learnopengl.com](https://learnopengl.com/) Use this time for graphics!
-- [Mip mapping](http://www.tomshardware.co.uk/ati,review-965-2.html)
-- [Full video explaining Normal mapping](https://www.youtube.com/watch?v=6_-NNKc4lrk) (A special kind of texturing)
+- [cplusplus - structures](http://www.cplusplus.com/doc/tutorial/structures/)
+- [learncpp - structs](https://www.learncpp.com/cpp-tutorial/47-structs/)
+
+## Part 2 - Rendering a Normal mapped Model
+
+### Task 1 - .obj and Normal Coordinates
+
+For this assignment you are going to render a single textured **and
+normal mapped** 3D model. Several objects are provided in the
+'objects' folder with their associated normal maps. I have personally
+tested with the 'house' model for most of my iterations, so I
+recommend you do the same.
+
+The tasks for rendering in this assignment are the following:
+1. Make sure you can parse the .obj file format and associated material file. 
+	- read in the vertex (v), vertex texture (vt), vertex normal(vn), and face(f) information.
+2. The .obj file should be read in from the command line arguments
+	- e.g. `./lab "./object/chapel/chapel_obj.obj"`
+
+**You may assume one texture per model for this assignment**
+
+A few of the additional fields are specified in [Paul Burke's
+guide](http://paulbourke.net/dataformats/obj/minobj.html), which are
+primarily used for rendering a scene. For now, we are only interested
+in the color.
+
+### Loading your own models for this assignment
+
+It is totally fine to provide your own school appropriate normal
+mapped 3D .obj files for this assignment. Some notes that may save you
+time debugging:
+
+- Make sure you push the model, texture(s), and material file to the repository.
+- If you use blender3D to export your own .obj model, make sure to scale it to about the size of a unit cube in Blender3D. This will save you time from moving the camera around a lot.
+- Triangulate the faces within the blender3D (there is an option when you export)
+- Check your material file to make sure it is loading .ppm images which we know how to handle. Use a program like [GIMP](https://www.gimp.org/) to convert them to ASCII format .ppm images otherwise.
+- The .ppm image may be 'mirrored', meaning you have to flip it horizontally for the actual texture coordinates to line up with the appropriate vertices.
+
+### Task 2 - Interactive Graphics
+
+The tasks for interactivity in this assignment are the following:
+- Pressing the 'w' key toggles drawing your scene in wireframe mode or textured polygon mode.
+- Pressing the 'q' key exits the application.
+
+### Task 3 - Perspective Camera
+
+Make sure your scene is being rendered in perspective. Make
+modifications to the vert.glsl as needed. This should be similar to
+what you have done in a previous lab.
+
+### More Assignment strategy 
+
+My suggested strategy for this project is:
+
+* You can use any of the code from the labs or previous assignments that you may find useful.
+	* In fact, I highly recommend it!
+* Have a special C++ class(in a .h and .cpp file) for loading OBJ models--not doing so is bad style!
+	* Utilize any data structure you like in the STL (e.g. std::vector) or Qt (QVector<T>)
+  	* You may assume all faces are triangles (though if you download any test .obj files from the web that may not be the case)
+* Think about how you can load a line of text and then split it into individual tokens.
+  	* A resource loading files (Filo I/O) in C++ can be found here: http://www.cplusplus.com/doc/tutorial/files/
+  	* The reference on strings may be useful: http://www.cplusplus.com/reference/string/string/
+    		* Some ideas on string splitting: http://www.martinbroadhurst.com/how-to-split-a-string-in-c.html
+* You do not need to use any complex shaders. In fact, I recommend using the most basic ones for this assignment.
+* I recommend using this webpage for help with OpenGL: http://docs.gl/gl3/glPolygonMode
+
+## How to run your program
+
+Your solution should compile using the standard CMake build envirnment.  
+
+Your program should then run by typing in: `./lab "./../objects/chapel/chapel_obj.obj"` OR using a File dropdown menu (just as for the previous assignment)
 
 ## Deliverables
 
-1. Implement movement of the camera
-2. Implement 'mouselook' in the camera
-3. Implement *some* model of light in your scene.
-4. Implement multiple lights in your scene - no fewer than 3.  Each light should be either a different type or color.
+- You should be able to display a triangulated .obj 3D normal mapped textured model (several are provided).
+	- If you would like you can make it spin, move around, or load multiple models. Please just document this in this readme.
+
+* You need to commit your code to this repository.
+* You need to use the build.py script provided. Anything else used is at your own risk--and you should provide complete documentation. If your program does not compile and run, you get a zero!
 
 ## Rubric
 
-You (and any partner(s)) will receive the same grade from a scale of 0-3.
+<table>
+  <tbody>
+    <tr>
+      <th>Points</th>
+      <th align="center">Description</th>
+    </tr>
+    <tr>
+      <td>30% (Core)</td>
+      <td align="left"><ul><li>Is the code clearly documented?</li><li>Are there no memory leaks?</li><li>Did you close the file after opening it?</li><li> How well was your abstraction to create a loader (or was it one giant ugly main function)?</li><li>Did you make sure your code worked with the 'build.py' or did we have a headache compiling your code?</li><li>Did you read in the model from the command line arguments or hard code the path?</li></ul></td>
+    </tr>   
+    <tr>
+      <td>40% (Core)</td>
+      <td align="left"><ul><li>(20%)Can you render at least the geometry correctly?</li><li>(10%) Did you implement the interactive components of this assignment?</li><li>(10%) Did you implement a perspective camera</li></ul></td>
+    </tr>
+      <td>30% (Advanced)</td>
+      <td align="left"><ul><li>(25%) Does your shader work with the brick wall? </li><li>(5%) Does your shader work with the .obj model?</li></ul></td>
+    </tr>
+  </tbody>
+</table>
 
-- 0 for no work completed by the deadline
-- 1 for some work completed, but something is not working properly
-- 2 for a completed lab with a single light
-- 3 for a completed lab with multiple lights
+## More Resources
 
-## Going Further
+(New for this assignment)
+* [Paul Bourkes page on textured obj files](http://paulbourke.net/dataformats/obj/minobj.html) (I recommend reading this one first for a minimal texture example)
 
-What is that, you finished Early? Did you enjoy this lab? Here are some (optional) ways to further this assignment.
 
-- Try to make your camera move smoothly!
-- Implement a 'jump' operation for your camera
-- Try to implement specular shading for your object using the provided specular.ppm and container.ppm
+Links on the OBJ Model Format (From last assignment)
+* [OBJ Model format - Clemson](https://people.cs.clemson.edu/~dhouse/courses/405/docs/brief-obj-file-format.html) (I recommend reading this one for more information)
+* [OBJ Model format - CMU](https://www.cs.cmu.edu/~mbz/personal/graphics/obj.html)
+* [OBJ Model format - wikipedia page](https://en.wikipedia.org/wiki/Wavefront_.obj_file)
 
-## Found a bug?
+## F.A.Q
 
-If you found a mistake (big or small, including spelling mistakes) in this lab, kindly send me an e-mail. It is not seen as nitpicky, but appreciated! (Or rather, future generations of students will appreciate it!)
-
-- Fun fact: The famous computer scientist Donald Knuth would pay folks one $2.56 for errors in his published works. [[source](https://en.wikipedia.org/wiki/Knuth_reward_check)]
-- Unfortunately, there is no monetary reward in this course :)
+* Q: Why the obj format?
+  * A: It is a standard data format understood by most programs.
+* Q: Can I load my own models that I have made to show off?
+  * A: Sure -- just make sure they are added to the repository (Including the texture)
+* Q: Why are my texture coordinates messed up? The geometry looks right?
+  * A: Try a different model first to confirm. Then you may have to flip the texture in a modeling program or within your .ppm loader depending on how the coordinates were assigned. 

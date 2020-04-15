@@ -1,4 +1,4 @@
-# Install script for directory: /Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination
+# Install script for directory: /Users/johnphilip/Desktop/test/ComputerGraphics/Assignment5_NormalMappedModel
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/johnphilip/Desktop/ComputerGraphics/Lab8_CameraAndIllumination/binary/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/johnphilip/Desktop/test/ComputerGraphics/Assignment5_NormalMappedModel/binary/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

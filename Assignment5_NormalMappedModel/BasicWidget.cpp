@@ -1,75 +1,44 @@
 #include "BasicWidget.h"
-
+#include "Parser.h"
 #include "UnitQuad.h"
+
+#include <vector>
+#include <iostream>
+
+using namespace std;
 
 //////////////////////////////////////////////////////////////////////
 // Publics
 BasicWidget::BasicWidget(QWidget* parent) : QOpenGLWidget(parent), logger_(this)
 {
   setFocusPolicy(Qt::StrongFocus);
-  camera_.setPosition(QVector3D(0.5, 0.5, -2.0));
-  camera_.setLookAt(QVector3D(0.5, 0.5, 0.0));
-  world_.setToIdentity();
+  isWireframe = false;
 }
 
 BasicWidget::~BasicWidget()
 {
-    for (auto renderable : renderables_) {
-        delete renderable;
-    }
-    renderables_.clear();
+  for (auto renderable : renderables_) {
+    delete renderable;
+  }
+  renderables_.clear();
 }
 
-//////////////////////////////////////////////////////////////////////
-// Privates
 ///////////////////////////////////////////////////////////////////////
 // Protected
 void BasicWidget::keyReleaseEvent(QKeyEvent* keyEvent)
 {
-  // Handle key events here.
-  if (keyEvent->key() == Qt::Key_Left) {
-    qDebug() << "Left Arrow Pressed";
-    update();  // We call update after we handle a key press to trigger a redraw when we are ready
-  } else if (keyEvent->key() == Qt::Key_Right) {
-    qDebug() << "Right Arrow Pressed";
-    update();  // We call update after we handle a key press to trigger a redraw when we are ready
-  } else if (keyEvent->key() == Qt::Key_R) {
-    camera_.setPosition(QVector3D(0.5, 0.5, -2.0));
-    camera_.setLookAt(QVector3D(0.5, 0.5, 0.0));
+  if (keyEvent->key() == Qt::Key_1) {
+    update();  
+  } else if (keyEvent->key() == Qt::Key_2) {
+    update();
+  } else if (keyEvent->key() == Qt::Key_Q) {
+    exit(0);
+  } else if (keyEvent->key() == Qt::Key_W) {
+    isWireframe = !isWireframe;
     update();
   } else {
     qDebug() << "You Pressed an unsupported Key!";
   }
-}
-
-void BasicWidget::mousePressEvent(QMouseEvent* mouseEvent)
-{
-  if (mouseEvent->button() == Qt::LeftButton) {
-    mouseAction_ = Rotate;
-  } else if (mouseEvent->button() == Qt::RightButton) {
-    mouseAction_ = Zoom;
-  }
-  lastMouseLoc_ = mouseEvent->pos();
-}
-
-void BasicWidget::mouseMoveEvent(QMouseEvent* mouseEvent)
-{
-  if (mouseAction_ == NoAction) {
-    return;
-  }
-  QPoint delta = mouseEvent->pos() - lastMouseLoc_;
-  lastMouseLoc_ = mouseEvent->pos();
-  if (mouseAction_ == Rotate) {
-    camera_.setLookAt(camera_.lookAt() + 0.01f * QVector3D(delta.x(), delta.y(), 0));
-  } else if (mouseAction_ == Zoom) {
-    camera_.translateCamera(camera_.gazeVector() * delta.y() * 0.05f);
-  } 
-  update();
-}
-
-void BasicWidget::mouseReleaseEvent(QMouseEvent* mouseEvent)
-{
-    mouseAction_ = NoAction;
 }
 
 void BasicWidget::initializeGL()
@@ -77,45 +46,25 @@ void BasicWidget::initializeGL()
   makeCurrent();
   initializeOpenGLFunctions();
 
-  qDebug() << QDir::currentPath();
-  // TODO:  You may have to change these paths.
-  QString brickTex = "../brick.ppm";
-  QString grassTex = "../grass.ppm";
+  QOpenGLContext* curContext = this->context();
+  qDebug() << "[BasicWidget]::initializeGL() -- Context Information:";
+  qDebug() << "  Context Valid: " << std::string(curContext->isValid() ? "true" : "false").c_str();
+  qDebug() << "  GL Version Used: " << curContext->format().majorVersion() << "." << curContext->format().minorVersion();
+  qDebug() << "  Vendor: " << reinterpret_cast<const char*>(glGetString(GL_VENDOR));
+  qDebug() << "  Renderer: " << reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+  qDebug() << "  Version: " << reinterpret_cast<const char*>(glGetString(GL_VERSION));
+  qDebug() << "  GLSL Version: " << reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-  UnitQuad* backWall = new UnitQuad();
-  backWall->init(brickTex);
-  QMatrix4x4 backXform;
-  backXform.setToIdentity();
-  backXform.scale(1.0, 1.0, -1.0);
-  backWall->setModelMatrix(backXform);
-  renderables_.push_back(backWall);
+  QString brickWall = "../../objects/brickWall_lowRes/brickWall_diffuse.ppm";
+  QString normalWall = "../../objects/brickWall_lowRes/brickWall_normal.ppm";
 
-  UnitQuad* rightWall = new UnitQuad();
-  rightWall->init(brickTex);
-  QMatrix4x4 rightXform;
-  rightXform.setToIdentity();
-  rightXform.rotate(90.0, 0.0, 1.0, 0.0);
-  rightWall->setModelMatrix(rightXform);
-  renderables_.push_back(rightWall);
-
-  UnitQuad* leftWall = new UnitQuad();
-  leftWall->init(brickTex);
-  QMatrix4x4 leftXform;
-  leftXform.setToIdentity();
-  leftXform.translate(1.0, 0.0, -1.0);
-  leftXform.rotate(-90.0, 0.0, 1.0, 0.0);
-  leftWall->setModelMatrix(leftXform);
-  renderables_.push_back(leftWall);
-
-  UnitQuad* floor = new UnitQuad();
-  floor->init(grassTex);
-  QMatrix4x4 floorXform;
-  floorXform.setToIdentity();
-  floorXform.translate(-0.5, 0.0, 0.5);
-  floorXform.scale(2.0, 2.0, 2.0);
-  floorXform.rotate(-90.0, 1.0, 0.0, 0.0);
-  floor->setModelMatrix(floorXform);
-  renderables_.push_back(floor);
+  UnitQuad* wall = new UnitQuad();
+  wall->init(brickWall, normalWall);
+  QMatrix4x4 bf;
+  bf.setToIdentity();
+  bf.scale(1.0, 1.0, -1.0);
+  wall->setModelMatrix(bf);
+  renderables_.push_back(wall);
 
   glViewport(0, 0, width(), height());
   frameTimer_.start();
@@ -123,38 +72,43 @@ void BasicWidget::initializeGL()
 
 void BasicWidget::resizeGL(int w, int h)
 {
-    if (!logger_.isLogging()) {
-        logger_.initialize();
-        // Setup the logger for real-time messaging
-        connect(&logger_, &QOpenGLDebugLogger::messageLogged, [=]() {
-            const QList<QOpenGLDebugMessage> messages = logger_.loggedMessages();
-            for (auto msg : messages) {
-                qDebug() << msg;
-            }
-            });
-        logger_.startLogging();
-    }
-  glViewport(0, 0, w, h);
+  if (!logger_.isLogging()) {
+    logger_.initialize();
+    // Setup the logger for real-time messaging
+    connect(&logger_, &QOpenGLDebugLogger::messageLogged, [=]() {
+      const QList<QOpenGLDebugMessage> messages = logger_.loggedMessages();
+      for (auto msg : messages) {
+        qDebug() << msg;
+      }
+    });
+    logger_.startLogging();
+  }
 
-  camera_.setPerspective(70.f, (float)w / (float)h, 0.001, 1000.0);
+  view_.setToIdentity();
+  view_.lookAt(QVector3D(0.0f, 0.0f, 4.0f),
+      QVector3D(0.0f, 0.0f, 0.0f),
+      QVector3D(0.0f, 1.0f, 0.0f));
+
+  projection_.setToIdentity();
+  projection_.perspective(70.f, (float)w/(float)h, 0.001, 1000.0);
+
   glViewport(0, 0, w, h);
 }
 
 void BasicWidget::paintGL()
 {
   qint64 msSinceRestart = frameTimer_.restart();
-  glDisable(GL_DEPTH_TEST);
+  glEnable(GL_DEPTH_TEST);
   glDisable(GL_CULL_FACE);
 
   glClearColor(0.f, 0.f, 0.f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  glEnable(GL_DEPTH_TEST);
+  glPolygonMode(GL_FRONT_AND_BACK, isWireframe ? GL_LINE : GL_FILL);
 
   for (auto renderable : renderables_) {
       renderable->update(msSinceRestart);
-      // TODO:  Understand that the camera is now governing the view and projection matrices
-      renderable->draw(world_, camera_.getViewMatrix(), camera_.getProjectionMatrix());
+      renderable->draw(view_, projection_);
   }
   update();
 }
