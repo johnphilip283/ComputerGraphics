@@ -18,6 +18,8 @@ BasicWidget::BasicWidget(string objFile, QWidget* parent) : QOpenGLWidget(parent
 
 BasicWidget::~BasicWidget()
 {
+  delete emitter_;
+
   for (auto renderable : renderables_) {
     delete renderable;
   }
@@ -57,17 +59,15 @@ void BasicWidget::initializeGL()
   qDebug() << "  GLSL Version: " << reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION));
 
   Parser test;
-
-  std::cout << "object file" << objFile << std::endl;
   
   test.parse(objFile);
 
   Renderable* ren = new Renderable();
   ren->init(test);
   ren->setRotationAxis(QVector3D(0., 1., 0.));
-  renderables_.push_back(ren);
 
-  emitter_ = new Emitter(QVector3D(0.0, 0.0, 0.0), QVector3D(0.0, 1.0, 0.0), ren);
+  emitter_ = new Emitter(QVector3D(0.0, 0.0, -6.0), QVector3D(0.0, 0.3, 0.0), 40, ren);
+
   glViewport(0, 0, width(), height());
   frameTimer_.start();
 }
@@ -103,17 +103,13 @@ void BasicWidget::paintGL()
   glEnable(GL_DEPTH_TEST);
   glDisable(GL_CULL_FACE);
 
-  emitter_->draw(projection_, view_);
-  emitter_->update(msSinceRestart);
-
   glClearColor(0.f, 0.f, 0.f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glPolygonMode(GL_FRONT_AND_BACK, isWireframe ? GL_LINE : GL_FILL);
+  
+  emitter_->update(msSinceRestart);
+  emitter_->draw(projection_, view_);
 
-  for (auto renderable : renderables_) {
-      renderable->update(msSinceRestart);
-      renderable->draw(view_, projection_);
-  }
   update();
 }

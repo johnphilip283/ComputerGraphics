@@ -107,8 +107,8 @@ public:
 In a few sentences why is our approach of keeping a pointer to the
 geometry to be drawn an optimization? Note: You can learn more about [instancing](https://learnopengl.com/Advanced-OpenGL/Instancing).
   
-**Answer here**: *Your answer here*
-  
+**Answer here**: If a particle were to hold a full instance of the geometry, then it would be incredibly expensive on memory, since we'd need to write from CPU to GPU much more for even a single rendering call. Since we have a lot of the same repeated geometry, we can access the same spot in memory via the pointer, and minimize communication between the CPU and GPU.
+
 ## How to run your program
 
 Your solution should compile using the standard CMake build procedure. 

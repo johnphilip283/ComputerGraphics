@@ -1,24 +1,34 @@
 #include "Particle.h"
 
-Particle::Particle(Renderable* ren, QMatrix4x4 transform, const QVector3D& velocity, const QColor& color, float ttl) {
-    this->renderable = ren;
-    this->transform = transform;
-    this->velocity = velocity;
-    this->color = color;
-    this->timeToLive_ = ttl;
+#include <iostream>
+
+using namespace std;
+
+Particle::Particle(Renderable* ren, const QMatrix4x4& transform, const QVector3D& velocity, float ttl) {
+    renderable_ = ren;
+    transform_ = transform;
+    velocity_ = velocity;
+    timeToLive_ = ttl;
 }
 
 void Particle::update(unsigned int msSinceLastUpdate) {
-    timeToLive_ -= (float) msSinceLastUpdate / 1000.0;
-    transform.translate(velocity);
-    velocity *= 0.95;
+    float seconds = msSinceLastUpdate / 1000.0;
+    timeToLive_ -= seconds;
+    transform_.translate(velocity_);
+    velocity_ -= seconds * QVector3D(0, 2., 0.);
 }
 
 void Particle::draw(const QMatrix4x4& projection, const QMatrix4x4& view) {
-    if (timeToLive_ < 0) {
+    if (isDead()) {
         return;
     }
-    renderable->draw(view, projection);
+
+    renderable_->setModelMatrix(transform_);
+    renderable_->draw(view, projection);
+}
+
+bool Particle::isDead() {
+    return timeToLive_ < 0;
 }
 
 Particle::~Particle() {}

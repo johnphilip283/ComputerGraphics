@@ -55,8 +55,6 @@ void Renderable::init(const Parser parser)
 	modelMatrix_.setToIdentity();
 	// Load our texture.
 
-	std::cout << "PPM file" << parser.getPPMFile().c_str() << std::endl;
-
 	texture_.setData(QImage(parser.getPPMFile().c_str()).mirrored(true, true));
 
 	vertexSize_ = 3 + 2;  // Position + texCoord
